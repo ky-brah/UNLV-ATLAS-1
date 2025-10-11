@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="static/socket.io.js"></script>
+    <link rel="stylesheet" href="static/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini</title>
+</head>
+<body style="background-color: #1E1E1E;">
+    <a href="/" style="position: absolute; right: 5%;" class="button">Home</a>
+        <form method="post" action="/" class="button" style="position: absolute; left: 5%;">
+            <span onclick="sendDeleteCommand()">Delete All Files</span>
+        </form>
+    <h1 class="header">Downloads</h1>
+    <hr> <!-- Line Break -->
+    <div id="downloads" class="flex-container"></div>
+    <hr> <!-- Line Break --> 
+    <footer>
+      <p class="footer"> @2022 Special Projects Lab</p>
+    </footer>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+      
+        function sendDeleteCommand() {
+          socket.emit("deleteCommand");
+          console.log("Delete all files command sent");
+        }
+
+        function updateDownloads() {
+            var downloads = document.getElementById("downloads");
+            downloads.innerHTML = "";
+            socket.emit("getFiles");
+        }
+
+        socket.on("files", function(files) {
+            var downloads = document.getElementById("downloads");
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var fileDiv = document.createElement("div");
+                fileDiv.className = "download-box";
+                var fileLink = document.createElement("a");
+                fileLink.href = "static/recording/" + file;
+                fileLink.innerHTML = file;
+                fileDiv.appendChild(fileLink);
+                downloads.appendChild(fileDiv);
+            }
+        });
+
+        updateDownloads();
+    </script>  
+  </body>
+</html>

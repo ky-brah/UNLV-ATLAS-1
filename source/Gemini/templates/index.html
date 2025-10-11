@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="static/socket.io.js"></script>
+    <link rel="stylesheet" href="static/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS-1</title>
+</head>
+<body style="background-color: #1E1E1E;">
+    <a href="/downloads" style="position: absolute; right: 5%;" class="button">Downloads</a>
+    <h1 class="header">Live Preview</h1>
+    <hr>
+    <div id="recordingIndicator"> <p class="header"> <img src="{{ url_for('static', filename='RecordingIcon.png') }}" width="30" height="30"></img> Currently Recording</p> </div>
+    <div id="encodingIndicator"> <p class="header"> <img src="{{ url_for('static', filename='EncodingIcon.png') }}" width="30" height="30"></img> Currently Encoding</p> </div>
+    <div class="flex-container">
+        <div class="window"><img id="stream" width=640></div>
+        <div class="window" style="padding-top: 10px;">
+            <form method="post" action="/" class="button">
+                <p onclick="sendRecordToggle()">Recording Toggle</p>
+            </form>
+            <div class="header">
+                <p id="Temperature">0</p>
+                <p id="Pressure">0</p>
+                <p id="Humidity">0</p>
+                <p id="Gyro">0</p>
+                <p id="Accel">0</p>
+                <p id="Mag">0</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+      <p> @2025 UNLV ATLAS-1 CubeSat</p>
+    </footer>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+        var recordingIndicator = document.getElementById("recordingIndicator");
+        var encodingIndicator = document.getElementById("encodingIndicator"); 
+        var stream = document.getElementById("stream");
+        recordingIndicator.style.display = "none";
+        encodingIndicator.style.display = "none";
+        
+        function sendRecordToggle() {
+            socket.emit("recordToggle");
+            console.log("Toggle Recording Command Sent");
+        }
+
+        socket.on("recordingIndicatorOn", function() {
+          recordingIndicator.style.display = "block";
+        });
+
+        socket.on("recordingIndicatorOff", function() {
+          recordingIndicator.style.display = "none";
+        });
+
+        socket.on("encodingIndicatorOn", function() {
+          encodingIndicator.style.display = "block";
+        });
+
+        socket.on("encodingIndicatorOff", function() {
+          encodingIndicator.style.display = "none";
+        });
+
+        socket.on("sensorData", function(data) {
+            for (entry in data) {
+                var divs = ["Temperature", "Pressure", "Humidity", "Gyro", "Accel", "Mag"];
+                document.getElementById(divs[entry]).innerHTML = divs[entry] + ": " + data[entry];
+        }});
+
+        socket.on("confirmConnect", function() {
+            socket.emit("confirmConnect");
+        });
+
+        socket.on("frame", function(frame) {
+            stream.src = frame;
+            stream.alt = "Error grabbing the image, malformed Base64 string?";
+        });
+    </script>
+</body>
+</html>

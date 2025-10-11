@@ -1,0 +1,69 @@
+a:link {
+  color: white;
+  text-decoration: none;
+}
+
+p {
+  margin: 20px;
+}
+
+.header {
+  color: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.window {
+  text-align: center;
+  margin: 10px;
+  border: 5px solid rgb(90, 90, 90);
+  border-radius: 10px;
+  width: 48%
+}
+
+.window img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.download-box {
+  text-align: center;
+  margin: 10px;
+  border: 5px solid rgb(90, 90, 90);
+  border-radius: 10px;
+  width: 48%;
+  transition: 50ms;
+  transition-timing-function: ease-in-out;
+}
+
+.download-box:hover {
+  background-color: #1c24b9;
+  box-shadow: 0 9px rgba(0, 0, 0, 0.329);
+}
+
+.button {
+  font-family: Helvetica, Arial, sans-serif;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  border: 3px solid rgb(90, 90, 90);
+  border-radius: 15px;
+  transition: 50ms;
+  transition-timing-function: ease-in-out;
+}    
+
+.button:hover {
+  background-color: #ac2413;
+  box-shadow: 0 9px rgba(0, 0, 0, 0.329);
+}

@@ -1,0 +1,15 @@
+#unlvcube.service
+
+[Unit]
+Description= unlvcube server
+
+[Service]
+Type= simple
+ExecStart= /bin/python3 /home/unlvcube/main.py
+ExecStop /bin/kill -2 $MAINPID
+
+
+[Install]
+WantedBy= multi-user.target
+
+
