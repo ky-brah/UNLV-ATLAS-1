@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UNLV ATLAS-1 CubeSat Mission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="UNLV ATLAS-1 is a student-led 1U CubeSat mission at the University of Nevada, Las Vegas advancing space technology and STEM education."
+  />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #4fd1c5;
+      --accent-soft: rgba(79, 209, 197, 0.1);
+      --text: #f7fafc;
+      --muted: #a0aec0;
+      --card: #111827;
+      --border: #2d3748;
+      --radius-xl: 1.25rem;
+      --radius-lg: 0.9rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1a365d 0, #050816 55%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 8, 22, 0.92),
+        rgba(5, 8, 22, 0.7)
+      );
+      border-bottom: 1px solid rgba(45, 55, 72, 0.7);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #63b3ed, #4fd1c5);
+      position: relative;
+      box-shadow: 0 0 22px rgba(79, 209, 197, 0.8);
+    }
+
+    .logo-orbit {
+      position: absolute;
+      inset: 5px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.8);
+      border-top-color: rgba(248, 250, 252, 0.7);
+      transform: rotate(-18deg);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(79, 209, 197, 0.6);
+      background: radial-gradient(circle at top left, #4fd1c5, #2b6cb0);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.75);
+      text-decoration: none;
+    }
+
+    .btn-primary span {
+      font-size: 1.1rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2rem;
+      align-items: center;
+      padding: 2.5rem 0 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-kicker {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 4vw, 2.9rem);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin: 0 0 0.7rem;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      max-width: 32rem;
+      font-size: 0.98rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .meta-pill {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(75, 85, 99, 0.8);
+    }
+
+    .orbital-card {
+      background: radial-gradient(circle at top, #111827, #020617);
+      border-radius: 50%;
+      aspect-ratio: 4 / 3;
+      max-width: 360px;
+      margin: 0 auto;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .orbital-grid {
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px solid rgba(75, 85, 99, 0.7);
+      border-top-color: rgba(156, 163, 175, 0.9);
+    }
+
+    .orbital-track {
+      position: absolute;
+      inset: 18%;
+      border-radius: 50%;
+      border: 1px dashed rgba(148, 163, 184, 0.85);
+      transform: rotate(-18deg);
+    }
+
+    .orbital-sat {
+      position: absolute;
+      width: 68px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #4fd1c5, #2b6cb0);
+      top: 16%;
+      right: 15%;
+      box-shadow: 0 0 22px rgba(79, 209, 197, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #0b1120;
+    }
+
+    .orbital-earth {
+      position: absolute;
+      bottom: -18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle at 50% 15%, #1e40af, #020617);
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      opacity: 0.9;
+    }
+
+    .orbital-hud {
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.88);
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 0.45rem 0.9rem;
+      font-size: 0.7rem;
+      display: flex;
+      gap: 0.9rem;
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 2.75rem;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section p.lead {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1f2937, #020617);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.3rem;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
+    }
+
+    .badge {
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+    }
+
+    .tiers-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
+
+    .tiers-table th,
+    .tiers-table td {
+      border: 1px solid rgba(45, 55, 72, 0.9);
+      padding: 0.55rem 0.6rem;
+      vertical-align: top;
+    }
+
+    .tiers-table th {
+      background: rgba(15, 23, 42, 0.95);
+      text-align: left;
+    }
+
+    .tiers-table tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .sponsor-cta {
+      padding: 1.1rem 1rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        120deg,
+        rgba(79, 209, 197, 0.12),
+        rgba(59, 130, 246, 0.08)
+      );
+      border: 1px solid rgba(79, 209, 197, 0.4);
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer {
+      border-top: 1px solid rgba(45, 55, 72, 0.8);
+      padding: 1.3rem 1.25rem 2rem;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: radial-gradient(circle at bottom, #020617, #000);
+    }
+
+    footer div {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <div class="logo-orbit"></div>
+        </div>
+        <span>UNLV ATLAS-1</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#tech">Spacecraft</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#sponsors">Sponsors</a></li>
+          <li>
+            <a class="btn-primary" href="#contact">
+              Sponsor Us <span>↗</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div>
+        <div class="hero-kicker">Student-Led CubeSat Mission</div>
+        <h1 class="hero-title">
+          UNLV ATLAS-1 <span>CubeSat</span>
+        </h1>
+        <p class="hero-subtitle">
+          UNLV ATLAS-1 is a 1U CubeSat designed and built by students at the
+          University of Nevada, Las Vegas. Our mission is to
+          <!-- TODO: replace this with a 1–2 sentence mission description from your presentation. -->
+          [insert short mission description here, e.g. “demonstrate and evaluate
+          student-developed space technologies while collecting data relevant to
+          space environment research and hands-on STEM education.”]
+        </p>
+        <div class="hero-meta">
+          <span class="meta-pill">Affiliation: University of Nevada, Las Vegas</span>
+          <span class="meta-pill">Form Factor: 1U CubeSat</span>
+          <span class="meta-pill">Phase: [Concept / Design / Integration]</span>
+        </div>
+      </div>
+      <div>
+        <div class="orbital-card">
+          <div class="orbital-grid"></div>
+          <div class="orbital-track"></div>
+          <div class="orbital-sat">ATLAS-1</div>
+          <div class="orbital-earth"></div>
+          <div class="orbital-hud">
+            <span>Altitude: ~[XXX] km</span>
+            <span>Period: ~[YY] min</span>
+            <span>Band: [UHF / S]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="section" id="mission">
+      <h2>Mission Overview</h2>
+      <p class="lead">
+        UNLV ATLAS-1 combines real spaceflight with impactful STEM education,
+        giving students the chance to design, build, test, and operate a
+        satellite in Low Earth Orbit.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Objectives</h3>
+          <p>
+            <!-- Replace with concrete objectives from your slides -->
+            The primary objective of UNLV ATLAS-1 is to [primary mission goal,
+            e.g. “demonstrate a student-developed payload and platform for
+            technology demonstration and space environment measurements”].
+          </p>
+          <ul>
+            <li>Primary: [Primary objective from presentation]</li>
+            <li>Secondary: [Secondary objective]</li>
+            <li>Educational: Involve UNLV students from multiple engineering disciplines</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Mission Profile</h3>
+          <p>
+            UNLV ATLAS-1 will be deployed into Low Earth Orbit where it will
+            operate for approximately [X–Y] months. During operations, the team
+            will [brief operations summary from your slides, e.g. “collect
+            payload data, perform technology demonstrations, and exercise
+            the full ground-to-space command and telemetry chain”]. Data will
+            be received by our ground infrastructure at UNLV.
+          </p>
+          <div class="badge-row">
+            <span class="badge">Duration: [X–Y] months</span>
+            <span class="badge">Ground: UNLV / partner stations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech -->
+    <section class="section" id="tech">
+      <h2>Spacecraft & Payload</h2>
+      <p class="lead">
+        Built using a 1U CubeSat architecture, UNLV ATLAS-1 combines commercial
+        off-the-shelf hardware with custom student-developed subsystems.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Spacecraft Bus</h3>
+          <ul>
+            <li>Form factor: 1U CubeSat</li>
+            <li>Structure: [COTS/custom] aluminum chassis</li>
+            <li>OBC: [Platform or spec]</li>
+            <li>ADCS: [Reaction wheels / magnetorquers / sensors]</li>
+            <li>Power: [Solar panels] + [Battery capacity]</li>
+            <li>Comms: [Frequency band, data rate, protocol]</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Payload</h3>
+          <p>
+            <!-- Fill this in from the presentation -->
+            The ATLAS-1 payload is a [type of sensor / camera / experiment]
+            designed to [payload objective]. The mission will generate data that
+            supports research and education at UNLV in areas such as:
+          </p>
+          <ul>
+            <li>[Research area 1]</li>
+            <li>[Research area 2]</li>
+            <li>[Educational / outreach use case]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section" id="team">
+      <h2>Team & Advisors</h2>
+      <p class="lead">
+        UNLV ATLAS-1 is developed by an interdisciplinary student team at the
+        University of Nevada, Las Vegas, guided by faculty and industry advisors.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Student Team</h3>
+          <ul>
+            <li>[Your Name] – [Role, e.g., Project Manager]</li>
+            <li>[Name] – Systems Lead</li>
+            <li>[Name] – Payload Lead</li>
+            <li>[Name] – Ground Systems Lead</li>
+            <li>[Name] – Mission Operations</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Advisors & Partners</h3>
+          <ul>
+            <li>[Dr. Name], [Title], College of Engineering, UNLV</li>
+            <li>[Lab or Center], University of Nevada, Las Vegas</li>
+            <li>[External advisor or industry partner]</li>
+          </ul>
+          <p>
+            We welcome additional technical and industry advisors who are
+            passionate about mentoring the next generation of space engineers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section class="section" id="sponsors">
+      <h2>Become a Sponsor</h2>
+      <p class="lead">
+        Join us as a mission partner and support hands-on STEM education while
+        gaining visibility in the growing small satellite community.
+      </p>
+      <div class="card">
+        <h3>Sponsorship Tiers</h3>
+        <table class="tiers-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Contribution</th>
+              <th>Benefits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bronze</strong></td>
+              <td>$500 – $1,000</td>
+              <td>
+                Logo on our website and social media acknowledgements; mention
+                in mission presentations.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Silver</strong></td>
+              <td>$1,000 – $3,000</td>
+              <td>
+                All Bronze benefits, plus logo on outreach posters and select
+                mission update slides; option to give a talk to the team.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Gold</strong></td>
+              <td>$3,000 – $7,500</td>
+              <td>
+                All Silver benefits, plus medium logo placement in integration
+                photos/backdrops; feature story on our website.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Platinum</strong></td>
+              <td>$7,500+ or major in-kind support</td>
+              <td>
+                All Gold benefits, plus prominent logo placement on the
+                CubeSat (subject to integration constraints); recognition in
+                major media outreach and invitations to key mission milestones.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="sponsor-cta" style="margin-top: 1rem;">
+          <div>
+            Interested in sponsoring or partnering with UNLV ATLAS-1? We offer both
+            financial and in-kind sponsorship options and are happy to tailor
+            benefits to your goals.
+          </div>
+          <a class="btn-primary" href="#contact">
+            Request Sponsor Packet <span>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <h2>Contact & Media</h2>
+      <p class="lead">
+        For sponsorships, technical collaborations, or media inquiries, please
+        get in touch with our team.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Primary Contact</h3>
+          <p>
+            <strong>[Your Name]</strong><br />
+            UNLV ATLAS-1 CubeSat Project<br />
+            University of Nevada, Las Vegas
+          </p>
+          <p>
+            Email:
+            <a href="mailto:[your-email]">[your-email]</a><br />
+            Phone: [Your phone]<br />
+            Location: Las Vegas, Nevada, USA
+          </p>
+        </div>
+        <div class="card">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="[Link to PDF one-pager]">Download mission one-pager</a></li>
+            <li><a href="[Link to slide deck]">Sponsor slide deck</a></li>
+            <li><a href="[Social link]">Follow UNLV ATLAS-1</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <span>
+        © [Year] UNLV ATLAS-1 · University of Nevada, Las Vegas
+      </span>
+      <span>
+        Designed & built by students, with support from our sponsors and
+        partners.
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
