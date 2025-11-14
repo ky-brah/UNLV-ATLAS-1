@@ -8,18 +8,27 @@
     name="description"
     content="UNLV ATLAS-1 is a student-led 1U CubeSat mission at the University of Nevada, Las Vegas advancing space technology and STEM education."
   />
+
+  <!-- TODO: If you use Google Fonts, add them here -->
+  <!-- Example:
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap">
+  -->
+
   <style>
     :root {
-      --bg: #050816;
-      --bg-alt: #0b1020;
-      --accent: #4fd1c5;
-      --accent-soft: rgba(79, 209, 197, 0.1);
-      --text: #f7fafc;
-      --muted: #a0aec0;
-      --card: #111827;
-      --border: #2d3748;
-      --radius-xl: 1.25rem;
-      --radius-lg: 0.9rem;
+      /* TODO: Replace with ATLAS-1 brand colors from your slide deck */
+      --color-bg: #050816;
+      --color-bg-alt: #0b1020;
+      --color-accent: #c8102e;          /* example UNLV red */
+      --color-accent-soft: rgba(200, 16, 46, 0.12);
+      --color-text: #f7fafc;
+      --color-muted: #a0aec0;
+      --color-card: #111827;
+      --color-border: #2d3748;
+
+      /* TODO: Replace with fonts used in your presentation */
+      --font-heading: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * {
@@ -28,15 +37,14 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top, #1a365d 0, #050816 55%, #000 100%);
-      color: var(--text);
+      font-family: var(--font-body);
+      background: radial-gradient(circle at top, #1a365d 0, var(--color-bg) 55%, #000 100%);
+      color: var(--color-text);
       line-height: 1.6;
     }
 
     a {
-      color: var(--accent);
+      color: var(--color-accent);
       text-decoration: none;
     }
 
@@ -71,15 +79,19 @@
       align-items: center;
       gap: 0.6rem;
       font-weight: 600;
+      font-family: var(--font-heading);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .logo-mark {
       width: 32px;
       height: 32px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #63b3ed, #4fd1c5);
+      background: radial-gradient(circle at 30% 30%, #ffffff, var(--color-accent));
       position: relative;
-      box-shadow: 0 0 22px rgba(79, 209, 197, 0.8);
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
     }
 
     .logo-orbit {
@@ -87,7 +99,7 @@
       inset: 5px;
       border-radius: 999px;
       border: 1px solid rgba(15, 23, 42, 0.8);
-      border-top-color: rgba(248, 250, 252, 0.7);
+      border-top-color: rgba(248, 250, 252, 0.8);
       transform: rotate(-18deg);
     }
 
@@ -102,11 +114,15 @@
 
     nav a {
       padding: 0.25rem 0;
-      border-bottom: 1px solid transparent;
+      border-bottom: 2px solid transparent;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
     }
 
     nav a:hover {
-      border-bottom-color: var(--accent);
+      border-bottom-color: var(--color-accent);
     }
 
     .btn-primary {
@@ -114,14 +130,17 @@
       align-items: center;
       gap: 0.4rem;
       padding: 0.45rem 0.95rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       border-radius: 999px;
-      border: 1px solid rgba(79, 209, 197, 0.6);
-      background: radial-gradient(circle at top left, #4fd1c5, #2b6cb0);
-      color: #0b1120;
+      border: 1px solid rgba(200, 16, 46, 0.7);
+      background: radial-gradient(circle at top left, var(--color-accent), #7b061c);
+      color: #fefefe;
       font-weight: 600;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.75);
+      font-family: var(--font-heading);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
       text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
 
     .btn-primary span {
@@ -149,26 +168,29 @@
     }
 
     .hero-kicker {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent);
+      letter-spacing: 0.26em;
+      color: var(--color-accent);
       margin-bottom: 0.75rem;
+      font-family: var(--font-heading);
     }
 
     .hero-title {
       font-size: clamp(2.1rem, 4vw, 2.9rem);
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.06em;
       margin: 0 0 0.7rem;
+      text-transform: uppercase;
+      font-family: var(--font-heading);
     }
 
     .hero-title span {
-      color: var(--accent);
+      color: var(--color-accent);
     }
 
     .hero-subtitle {
-      color: var(--muted);
+      color: var(--color-muted);
       max-width: 32rem;
       font-size: 0.98rem;
       margin-bottom: 1.6rem;
@@ -179,18 +201,18 @@
       flex-wrap: wrap;
       gap: 0.9rem;
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--color-muted);
     }
 
     .meta-pill {
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(75, 85, 99, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.9);
     }
 
     .orbital-card {
-      background: radial-gradient(circle at top, #111827, #020617);
+      background: radial-gradient(circle at top, #111827, var(--color-bg-alt));
       border-radius: 50%;
       aspect-ratio: 4 / 3;
       max-width: 360px;
@@ -222,16 +244,19 @@
       width: 68px;
       height: 34px;
       border-radius: 12px;
-      background: linear-gradient(to right, #4fd1c5, #2b6cb0);
+      background: linear-gradient(to right, var(--color-accent), #7b061c);
       top: 16%;
       right: 15%;
-      box-shadow: 0 0 22px rgba(79, 209, 197, 0.9);
+      box-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.6rem;
       font-weight: 700;
-      color: #0b1120;
+      color: #fefefe;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
 
     .orbital-earth {
@@ -241,7 +266,7 @@
       transform: translateX(-50%);
       width: 150%;
       height: 150%;
-      background: radial-gradient(circle at 50% 15%, #1e40af, #020617);
+      background: radial-gradient(circle at 50% 15%, #1e293b, #020617);
       border-top-left-radius: 50%;
       border-top-right-radius: 50%;
       border-bottom-left-radius: 0;
@@ -254,14 +279,14 @@
       bottom: 8%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.88);
+      background: rgba(15, 23, 42, 0.92);
       border-radius: 999px;
       border: 1px solid rgba(55, 65, 81, 0.9);
       padding: 0.45rem 0.9rem;
       font-size: 0.7rem;
       display: flex;
       gap: 0.9rem;
-      color: var(--muted);
+      color: var(--color-muted);
     }
 
     .section {
@@ -271,10 +296,13 @@
     .section h2 {
       font-size: 1.3rem;
       margin-bottom: 0.4rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
     }
 
     .section p.lead {
-      color: var(--muted);
+      color: var(--color-muted);
       font-size: 0.9rem;
       margin-top: 0;
     }
@@ -292,9 +320,9 @@
     }
 
     .card {
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, var(--color-card), var(--color-bg-alt));
+      border-radius: 1.2rem;
+      border: 1px solid var(--color-border);
       padding: 1.25rem 1.3rem;
       box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
     }
@@ -303,11 +331,14 @@
       font-size: 1rem;
       margin-top: 0;
       margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .card p {
       font-size: 0.9rem;
-      color: var(--muted);
+      color: var(--color-muted);
     }
 
     .badge-row {
@@ -323,7 +354,7 @@
       border-radius: 999px;
       background: rgba(15, 23, 42, 0.95);
       border: 1px solid rgba(55, 65, 81, 0.9);
-      color: var(--muted);
+      color: var(--color-muted);
     }
 
     .tiers-table {
@@ -351,13 +382,13 @@
 
     .sponsor-cta {
       padding: 1.1rem 1rem;
-      border-radius: var(--radius-lg);
+      border-radius: 1rem;
       background: linear-gradient(
         120deg,
-        rgba(79, 209, 197, 0.12),
+        var(--color-accent-soft),
         rgba(59, 130, 246, 0.08)
       );
-      border: 1px solid rgba(79, 209, 197, 0.4);
+      border: 1px solid rgba(200, 16, 46, 0.5);
       font-size: 0.9rem;
       display: flex;
       flex-wrap: wrap;
@@ -366,12 +397,160 @@
       justify-content: space-between;
     }
 
+    /* Interactive Mission Timeline */
+
+    .timeline {
+      margin-top: 1.4rem;
+      padding: 1rem 1.1rem 0.6rem;
+      border-radius: 1rem;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(75, 85, 99, 0.9);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-header h3 {
+      margin: 0;
+    }
+
+    .timeline-header span {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-family: var(--font-heading);
+    }
+
+    .timeline-track {
+      position: relative;
+      margin-top: 0.6rem;
+      padding-top: 1.2rem;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1.4rem;
+      height: 2px;
+      background: linear-gradient(to right, rgba(75, 85, 99, 0.3), rgba(148, 163, 184, 0.9), rgba(75, 85, 99, 0.3));
+    }
+
+    .timeline-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-step {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      margin: 0 auto 0.35rem;
+      border: 2px solid rgba(148, 163, 184, 0.8);
+      background: var(--color-bg);
+      transition: all 0.2s ease;
+    }
+
+    .timeline-step.active .timeline-dot {
+      background: var(--color-accent);
+      border-color: #fefefe;
+      box-shadow: 0 0 16px rgba(200, 16, 46, 0.8);
+    }
+
+    .timeline-label {
+      font-size: 0.7rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-family: var(--font-heading);
+    }
+
+    .timeline-detail {
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed rgba(75, 85, 99, 0.8);
+      font-size: 0.88rem;
+      color: var(--color-muted);
+      min-height: 3rem;
+    }
+
+    /* Team grid */
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .team-card {
+      background: radial-gradient(circle at top left, var(--color-card), var(--color-bg-alt));
+      border-radius: 1rem;
+      border: 1px solid var(--color-border);
+      padding: 0.9rem 0.9rem 1rem;
+      text-align: center;
+    }
+
+    .team-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 999px;
+      object-fit: cover;
+      margin-bottom: 0.6rem;
+      border: 2px solid rgba(200, 16, 46, 0.7);
+      background: #020617;
+    }
+
+    .team-name {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--color-muted);
+    }
+
+    .team-extra {
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      margin-top: 0.35rem;
+    }
+
     footer {
       border-top: 1px solid rgba(45, 55, 72, 0.8);
       padding: 1.3rem 1.25rem 2rem;
       margin-top: 2rem;
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--color-muted);
       background: radial-gradient(circle at bottom, #020617, #000);
     }
 
@@ -422,9 +601,9 @@
           UNLV ATLAS-1 is a 1U CubeSat designed and built by students at the
           University of Nevada, Las Vegas. Our mission is to
           <!-- TODO: replace this with a 1–2 sentence mission description from your presentation. -->
-          [insert short mission description here, e.g. “demonstrate and evaluate
-          student-developed space technologies while collecting data relevant to
-          space environment research and hands-on STEM education.”]
+          [insert short mission description here, e.g. “demonstrate student-built
+          space technologies while collecting data for space environment research and
+          hands-on STEM education.”]
         </p>
         <div class="hero-meta">
           <span class="meta-pill">Affiliation: University of Nevada, Las Vegas</span>
@@ -455,6 +634,7 @@
         giving students the chance to design, build, test, and operate a
         satellite in Low Earth Orbit.
       </p>
+
       <div class="grid-2">
         <div class="card">
           <h3>Objectives</h3>
@@ -470,19 +650,47 @@
             <li>Educational: Involve UNLV students from multiple engineering disciplines</li>
           </ul>
         </div>
+
+        <!-- Interactive Mission Timeline -->
         <div class="card">
-          <h3>Mission Profile</h3>
-          <p>
-            UNLV ATLAS-1 will be deployed into Low Earth Orbit where it will
-            operate for approximately [X–Y] months. During operations, the team
-            will [brief operations summary from your slides, e.g. “collect
-            payload data, perform technology demonstrations, and exercise
-            the full ground-to-space command and telemetry chain”]. Data will
-            be received by our ground infrastructure at UNLV.
-          </p>
-          <div class="badge-row">
-            <span class="badge">Duration: [X–Y] months</span>
-            <span class="badge">Ground: UNLV / partner stations</span>
+          <div class="timeline">
+            <div class="timeline-header">
+              <h3>Mission Timeline</h3>
+              <span>Click a phase to explore</span>
+            </div>
+            <div class="timeline-track">
+              <div class="timeline-line"></div>
+              <div class="timeline-steps">
+                <!-- TODO: Adjust labels & data-phase attributes to match your real phases -->
+                <div class="timeline-step active" data-phase="phase0">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Concept</div>
+                </div>
+                <div class="timeline-step" data-phase="phase1">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Design</div>
+                </div>
+                <div class="timeline-step" data-phase="phase2">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Integration</div>
+                </div>
+                <div class="timeline-step" data-phase="phase3">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Launch</div>
+                </div>
+                <div class="timeline-step" data-phase="phase4">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Operations</div>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-detail" id="timeline-detail">
+              <!-- Initial text shown for the active phase -->
+              <!-- TODO: Replace text with real description for your concept phase -->
+              During the Concept phase, the ATLAS-1 team defined mission goals,
+              top-level requirements, and initial CubeSat architecture while
+              validating feasibility with faculty and partners.
+            </div>
           </div>
         </div>
       </div>
@@ -524,34 +732,86 @@
       </div>
     </section>
 
-    <!-- Team -->
+    <!-- Team (with photos) -->
     <section class="section" id="team">
       <h2>Team & Advisors</h2>
       <p class="lead">
         UNLV ATLAS-1 is developed by an interdisciplinary student team at the
         University of Nevada, Las Vegas, guided by faculty and industry advisors.
       </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Student Team</h3>
-          <ul>
-            <li>[Your Name] – [Role, e.g., Project Manager]</li>
-            <li>[Name] – Systems Lead</li>
-            <li>[Name] – Payload Lead</li>
-            <li>[Name] – Ground Systems Lead</li>
-            <li>[Name] – Mission Operations</li>
-          </ul>
+
+      <div class="card">
+        <h3>Student Team</h3>
+        <p class="lead" style="margin-bottom: 0.6rem; font-size: 0.85rem;">
+          <!-- How to add photos:
+            1. Put images in your repo (e.g. /img/alex.jpg).
+            2. Update the src values below to match your file names.
+          -->
+          Below are some of the students leading the ATLAS-1 mission. Full team
+          details can be shared in the sponsor packet.
+        </p>
+        <div class="team-grid">
+          <!-- TODO: Duplicate & edit these for your real team -->
+          <div class="team-card">
+            <img src="img/your-photo-1.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Your Name]</div>
+            <div class="team-role">Project Manager</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-2.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Systems Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-3.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Payload Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-4.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Ground Systems Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-5.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Mission Operations</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-6.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Software / Comms</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
         </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1.5rem;">
         <div class="card">
-          <h3>Advisors & Partners</h3>
+          <h3>Advisors</h3>
           <ul>
             <li>[Dr. Name], [Title], College of Engineering, UNLV</li>
-            <li>[Lab or Center], University of Nevada, Las Vegas</li>
-            <li>[External advisor or industry partner]</li>
+            <li>[Dr. Name], [Title], [Department], UNLV</li>
           </ul>
           <p>
-            We welcome additional technical and industry advisors who are
-            passionate about mentoring the next generation of space engineers.
+            Faculty advisors provide guidance on systems engineering, mission
+            design, and integration with ongoing research at UNLV.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Partners</h3>
+          <ul>
+            <li>[Lab or Center], University of Nevada, Las Vegas</li>
+            <li>[External partner or sponsor]</li>
+          </ul>
+          <p>
+            We welcome additional technical and industry partners interested in
+            supporting CubeSat development and student training.
           </p>
         </div>
       </div>
@@ -669,5 +929,33 @@
       </span>
     </div>
   </footer>
+
+  <!-- Interactive timeline logic -->
+  <script>
+    // Simple interactive mission timeline for ATLAS-1
+    const phaseDetails = {
+      // TODO: Replace these strings with your real phase descriptions
+      phase0: "During the Concept phase, the ATLAS-1 team defined mission goals, high-level requirements, and initial CubeSat architecture while validating feasibility with faculty advisors and partners.",
+      phase1: "In the Design phase, the team developed detailed subsystem designs, completed preliminary and critical design reviews, and began early prototyping and software development.",
+      phase2: "The Integration phase focuses on assembling flight hardware, performing functional tests, and validating end-to-end communications with the ground segment.",
+      phase3: "Leading up to Launch, ATLAS-1 undergoes final environmental testing, integration with the deployer/launch provider, and readiness reviews.",
+      phase4: "During Operations, the team commands the satellite, downlinks payload and telemetry data, and publishes results while continuing outreach and educational activities at UNLV."
+    };
+
+    const steps = document.querySelectorAll(".timeline-step");
+    const detailEl = document.getElementById("timeline-detail");
+
+    steps.forEach(step => {
+      step.addEventListener("click", () => {
+        const phase = step.getAttribute("data-phase");
+        steps.forEach(s => s.classList.remove("active"));
+        step.classList.add("active");
+        if (phaseDetails[phase]) {
+          detailEl.textContent = phaseDetails[phase];
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+
