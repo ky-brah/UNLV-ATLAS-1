@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>[PROJECT NAME] CubeSat Mission</title>
+  <title>UNLV ATLAS-1 CubeSat Mission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="[PROJECT NAME] is a student-led CubeSat mission at [UNIVERSITY] advancing space technology and STEM education."
+    content="UNLV ATLAS-1 is a student-led 1U CubeSat mission at the University of Nevada, Las Vegas advancing space technology and STEM education."
   />
   <style>
     :root {
@@ -365,8 +365,33 @@
       align-items: center;
       justify-content: space-between;
     }
-        .timeline {
-      margin-top: 1.4rem;
+
+    footer {
+      border-top: 1px solid rgba(45, 55, 72, 0.8);
+      padding: 1.3rem 1.25rem 2rem;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: radial-gradient(circle at bottom, #020617, #000);
+    }
+
+    footer div {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.7rem;
+    }
+
+    /* === Interactive Mission Timeline (full-width under Mission Overview) === */
+
+    .timeline-card {
+      margin-top: 1.1rem;
+    }
+
+    .timeline {
+      margin-top: 0.4rem;
       padding: 1rem 1.1rem 0.6rem;
       border-radius: 1rem;
       background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
@@ -387,10 +412,9 @@
 
     .timeline-header span {
       font-size: 0.75rem;
-      color: var(--color-muted);
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      font-family: var(--font-heading);
     }
 
     .timeline-track {
@@ -428,22 +452,21 @@
       border-radius: 999px;
       margin: 0 auto 0.35rem;
       border: 2px solid rgba(148, 163, 184, 0.8);
-      background: var(--color-bg);
+      background: var(--bg);
       transition: all 0.2s ease;
     }
 
     .timeline-step.active .timeline-dot {
-      background: var(--color-accent);
+      background: var(--accent);
       border-color: #fefefe;
-      box-shadow: 0 0 16px rgba(200, 16, 46, 0.8);
+      box-shadow: 0 0 16px rgba(79, 209, 197, 0.8);
     }
 
     .timeline-label {
       font-size: 0.7rem;
-      color: var(--color-muted);
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-family: var(--font-heading);
     }
 
     .timeline-detail {
@@ -451,11 +474,11 @@
       padding-top: 0.8rem;
       border-top: 1px dashed rgba(75, 85, 99, 0.8);
       font-size: 0.88rem;
-      color: var(--color-muted);
+      color: var(--muted);
       min-height: 3rem;
     }
 
-        /* Team grid */
+    /* === Team photos grid === */
 
     .team-grid {
       display: grid;
@@ -477,9 +500,9 @@
     }
 
     .team-card {
-      background: radial-gradient(circle at top left, var(--color-card), var(--color-bg-alt));
+      background: radial-gradient(circle at top left, var(--card), var(--bg-alt));
       border-radius: 1rem;
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--border);
       padding: 0.9rem 0.9rem 1rem;
       text-align: center;
     }
@@ -490,43 +513,24 @@
       border-radius: 999px;
       object-fit: cover;
       margin-bottom: 0.6rem;
-      border: 2px solid rgba(200, 16, 46, 0.7);
+      border: 2px solid rgba(79, 209, 197, 0.7);
       background: #020617;
     }
 
     .team-name {
-      font-family: var(--font-heading);
       font-size: 0.95rem;
       margin-bottom: 0.1rem;
     }
 
     .team-role {
       font-size: 0.8rem;
-      color: var(--color-muted);
+      color: var(--muted);
     }
 
     .team-extra {
       font-size: 0.75rem;
-      color: var(--color-muted);
-      margin-top: 0.35rem;
-    }
-    
-    footer {
-      border-top: 1px solid rgba(45, 55, 72, 0.8);
-      padding: 1.3rem 1.25rem 2rem;
-      margin-top: 2rem;
-      font-size: 0.8rem;
       color: var(--muted);
-      background: radial-gradient(circle at bottom, #020617, #000);
-    }
-
-    footer div {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.7rem;
+      margin-top: 0.35rem;
     }
   </style>
 </head>
@@ -537,7 +541,7 @@
         <div class="logo-mark">
           <div class="logo-orbit"></div>
         </div>
-        <span>[PROJECT NAME]</span>
+        <span>UNLV ATLAS-1</span>
       </div>
       <nav>
         <ul>
@@ -561,25 +565,27 @@
       <div>
         <div class="hero-kicker">Student-Led CubeSat Mission</div>
         <h1 class="hero-title">
-          [PROJECT NAME] <span>CubeSat</span> from [UNIVERSITY]
+          UNLV ATLAS-1 <span>CubeSat</span> from UNLV
         </h1>
         <p class="hero-subtitle">
-          [PROJECT NAME] is a [1U/2U/3U] CubeSat designed and built by students at
-          [UNIVERSITY]. Our mission is to [1–2 sentence mission goal, e.g., "demonstrate
-          a low-cost Earth observation payload while giving students hands-on
-          experience in end-to-end space systems engineering."].
+          UNLV ATLAS-1 is a 1U CubeSat designed and built by students at the
+          University of Nevada, Las Vegas. Our mission is to
+          <!-- TODO: replace this with a 1–2 sentence mission description from your presentation. -->
+          [insert short mission description here, e.g., “demonstrate student-built
+          space technologies while collecting data for space environment research and
+          hands-on STEM education.”]
         </p>
         <div class="hero-meta">
-          <span class="meta-pill">Target Launch: [QX YYYY]</span>
-          <span class="meta-pill">Orbit: [e.g., 500–600 km LEO]</span>
-          <span class="meta-pill">TRL: [Concept / PDR / CDR / Integration]</span>
+          <span class="meta-pill">Affiliation: University of Nevada, Las Vegas</span>
+          <span class="meta-pill">Form Factor: 1U CubeSat</span>
+          <span class="meta-pill">Phase: [Concept / Design / Integration]</span>
         </div>
       </div>
       <div>
         <div class="orbital-card">
           <div class="orbital-grid"></div>
           <div class="orbital-track"></div>
-          <div class="orbital-sat">[PROJECT]</div>
+          <div class="orbital-sat">ATLAS-1</div>
           <div class="orbital-earth"></div>
           <div class="orbital-hud">
             <span>Altitude: ~[XXX] km</span>
@@ -594,40 +600,67 @@
     <section class="section" id="mission">
       <h2>Mission Overview</h2>
       <p class="lead">
-        Our mission combines real spaceflight with impactful STEM education,
+        UNLV ATLAS-1 combines real spaceflight with impactful STEM education,
         giving students the chance to design, build, test, and operate a
         satellite in Low Earth Orbit.
       </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Objectives</h3>
-          <p>
-            [Brief overview, e.g., "The primary objective of [PROJECT NAME] is to
-            demonstrate a low-cost payload for [application] while validating
-            student-built spacecraft subsystems and providing mission data to
-            support ongoing research at [UNIVERSITY]."]
-          </p>
-          <ul>
-            <li>Primary: [Primary objective]</li>
-            <li>Secondary: [Secondary objective]</li>
-            <li>Educational: Involve [N]+ students from [departments]</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Mission Profile</h3>
-          <p>
-            [PROJECT NAME] will be deployed into Low Earth Orbit where it will
-            operate for approximately [X–Y] months. During operations, we will
-            [summary of operations, e.g., "capture and downlink imagery /
-            collect sensor data / perform technology demonstrations"]. Data will
-            be received by our ground station at [location].
-          </p>
-          <div class="badge-row">
-            <span class="badge">Phase: [Design / Integration]</span>
-            <span class="badge">Duration: [X–Y] months</span>
-            <span class="badge">Ground Station: [Location]</span>
+
+      <!-- Full-width interactive timeline -->
+      <div class="card timeline-card">
+        <div class="timeline">
+          <div class="timeline-header">
+            <h3>Mission Timeline</h3>
+            <span>Click a phase to explore</span>
+          </div>
+          <div class="timeline-track">
+            <div class="timeline-line"></div>
+            <div class="timeline-steps">
+              <!-- Adjust labels & phases as needed -->
+              <div class="timeline-step active" data-phase="phase0">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Concept</div>
+              </div>
+              <div class="timeline-step" data-phase="phase1">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Design</div>
+              </div>
+              <div class="timeline-step" data-phase="phase2">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Integration</div>
+              </div>
+              <div class="timeline-step" data-phase="phase3">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Launch</div>
+              </div>
+              <div class="timeline-step" data-phase="phase4">
+                <div class="timeline-dot"></div>
+                <div class="timeline-label">Operations</div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-detail" id="timeline-detail">
+            <!-- Initial text for active phase -->
+            During the Concept phase, the ATLAS-1 team defined mission goals,
+            high-level requirements, and initial CubeSat architecture while
+            validating feasibility with faculty and partners.
           </div>
         </div>
+      </div>
+
+      <!-- Full-width Objectives card under the timeline -->
+      <div class="card" style="margin-top: 1.4rem;">
+        <h3>Objectives</h3>
+        <p>
+          <!-- Replace with concrete objectives from your slides -->
+          The primary objective of UNLV ATLAS-1 is to [primary mission goal,
+          e.g., “demonstrate a student-developed payload and platform for
+          technology demonstration and space environment measurements”].
+        </p>
+        <ul>
+          <li>Primary: [Primary objective from presentation]</li>
+          <li>Secondary: [Secondary objective]</li>
+          <li>Educational: Involve UNLV students from multiple engineering disciplines</li>
+        </ul>
       </div>
     </section>
 
@@ -635,15 +668,14 @@
     <section class="section" id="tech">
       <h2>Spacecraft & Payload</h2>
       <p class="lead">
-        Built using a modular CubeSat architecture, [PROJECT NAME] combines
-        commercial off-the-shelf hardware with custom student-developed
-        subsystems.
+        Built using a 1U CubeSat architecture, UNLV ATLAS-1 combines commercial
+        off-the-shelf hardware with custom student-developed subsystems.
       </p>
       <div class="grid-2">
         <div class="card">
           <h3>Spacecraft Bus</h3>
           <ul>
-            <li>Form factor: [1U/2U/3U] CubeSat</li>
+            <li>Form factor: 1U CubeSat</li>
             <li>Structure: [COTS/custom] aluminum chassis</li>
             <li>OBC: [Platform or spec]</li>
             <li>ADCS: [Reaction wheels / magnetorquers / sensors]</li>
@@ -654,9 +686,10 @@
         <div class="card">
           <h3>Payload</h3>
           <p>
-            [Payload description, e.g., "Our payload is a [type of sensor /
-            camera / experiment] designed to [objective]."] The mission will
-            generate data that supports research in:
+            <!-- Fill this in from the presentation -->
+            The ATLAS-1 payload is a [type of sensor / camera / experiment]
+            designed to [payload objective]. The mission will generate data that
+            supports research in:
           </p>
           <ul>
             <li>[Research area 1]</li>
@@ -667,34 +700,77 @@
       </div>
     </section>
 
-    <!-- Team -->
+    <!-- Team with photos -->
     <section class="section" id="team">
       <h2>Team & Advisors</h2>
       <p class="lead">
-        [PROJECT NAME] is developed by an interdisciplinary team of students at
-        [UNIVERSITY], guided by faculty and industry advisors.
+        UNLV ATLAS-1 is developed by an interdisciplinary team of students at the
+        University of Nevada, Las Vegas, guided by faculty and industry advisors.
       </p>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Student Team</h3>
-          <ul>
-            <li>[Your Name] – [Role, e.g., Project Manager]</li>
-            <li>[Name] – [Systems Lead]</li>
-            <li>[Name] – [Payload Lead]</li>
-            <li>[Name] – [Ground Systems Lead]</li>
-            <li>[Name] – [Operations & Mission Planning]</li>
-          </ul>
+
+      <div class="card">
+        <h3>Student Team</h3>
+        <p class="lead" style="margin-bottom: 0.6rem; font-size: 0.85rem;">
+          <!-- How to add photos:
+            1. Create an /img folder in your repo.
+            2. Upload photos there (e.g., img/alex.jpg).
+            3. Update the src values below to match your filenames.
+          -->
+          Below are some of the students leading the ATLAS-1 mission. Full team
+          details can be shared in the sponsor packet.
+        </p>
+        <div class="team-grid">
+          <!-- Duplicate & edit these for your real team -->
+          <div class="team-card">
+            <img src="img/your-photo-1.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Your Name]</div>
+            <div class="team-role">Project Manager</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-2.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Systems Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-3.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Payload Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-4.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Ground Systems Lead</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-5.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Mission Operations</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
+          <div class="team-card">
+            <img src="img/your-photo-6.jpg" alt="Team member photo" class="team-photo" />
+            <div class="team-name">[Name]</div>
+            <div class="team-role">Software / Comms</div>
+            <div class="team-extra">B.S. [Major], UNLV</div>
+          </div>
         </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1.5rem;">
         <div class="card">
           <h3>Advisors & Partners</h3>
           <ul>
-            <li>[Dr. Name], [Title], [Department], [UNIVERSITY]</li>
-            <li>[Lab or Center], [UNIVERSITY]</li>
+            <li>[Dr. Name], [Title], [Department], UNLV</li>
+            <li>[Lab or Center], University of Nevada, Las Vegas</li>
             <li>[External advisor or industry partner]</li>
           </ul>
           <p>
-            We welcome additional technical and industry advisors who are
-            passionate about mentoring the next generation of space engineers.
+            Faculty and partners provide guidance on systems engineering, mission
+            design, and integration with ongoing research at UNLV.
           </p>
         </div>
       </div>
@@ -720,7 +796,7 @@
           <tbody>
             <tr>
               <td><strong>Bronze</strong></td>
-              <td>\$500 – \$1,000</td>
+              <td>$500 – $1,000</td>
               <td>
                 Logo on our website and social media acknowledgements; mention
                 in mission presentations.
@@ -728,7 +804,7 @@
             </tr>
             <tr>
               <td><strong>Silver</strong></td>
-              <td>\$1,000 – \$3,000</td>
+              <td>$1,000 – $3,000</td>
               <td>
                 All Bronze benefits, plus logo on outreach posters and select
                 mission update slides; option to give a talk to the team.
@@ -736,7 +812,7 @@
             </tr>
             <tr>
               <td><strong>Gold</strong></td>
-              <td>\$3,000 – \$7,500</td>
+              <td>$3,000 – $7,500</td>
               <td>
                 All Silver benefits, plus medium logo placement in integration
                 photos/backdrops; feature story on our website.
@@ -744,7 +820,7 @@
             </tr>
             <tr>
               <td><strong>Platinum</strong></td>
-              <td>\$7,500+ or major in-kind support</td>
+              <td>$7,500+ or major in-kind support</td>
               <td>
                 All Gold benefits, plus prominent logo placement on the
                 CubeSat (subject to integration constraints); recognition in
@@ -756,7 +832,7 @@
 
         <div class="sponsor-cta" style="margin-top: 1rem;">
           <div>
-            Interested in sponsoring or partnering with us? We offer both
+            Interested in sponsoring or partnering with UNLV ATLAS-1? We offer both
             financial and in-kind sponsorship options and are happy to tailor
             benefits to your goals.
           </div>
@@ -779,14 +855,14 @@
           <h3>Primary Contact</h3>
           <p>
             <strong>[Your Name]</strong><br />
-            [Role], [PROJECT NAME] CubeSat<br />
-            [UNIVERSITY]
+            UNLV ATLAS-1 CubeSat Project<br />
+            University of Nevada, Las Vegas
           </p>
           <p>
             Email:
-            <a href="mailto:you@yourdomain.org">you@yourdomain.org</a><br />
+            <a href="mailto:[your-email]">[your-email]</a><br />
             Phone: [Your phone]<br />
-            Location: [City, State, Country]
+            Location: Las Vegas, Nevada, USA
           </p>
         </div>
         <div class="card">
@@ -794,7 +870,7 @@
           <ul>
             <li><a href="[Link to PDF one-pager]">Download mission one-pager</a></li>
             <li><a href="[Link to slide deck]">Sponsor slide deck</a></li>
-            <li><a href="[Social link]">Follow us on [Platform]</a></li>
+            <li><a href="[Social link]">Follow UNLV ATLAS-1</a></li>
           </ul>
         </div>
       </div>
@@ -804,14 +880,42 @@
   <footer>
     <div>
       <span>
-        © 2025 UNLV ATLAS-1 CubeSat · University of Nevada, Las Vegas
+        © [Year] UNLV ATLAS-1 · University of Nevada, Las Vegas
       </span>
       <span>
-        Designed & built by Nevada students, with support from our sponsors, mentors, and
+        Designed & built by students, with support from our sponsors and
         partners.
       </span>
     </div>
   </footer>
+
+  <!-- Interactive timeline logic -->
+  <script>
+    // Simple interactive mission timeline for ATLAS-1
+    const phaseDetails = {
+      // TODO: Replace these strings with your real phase descriptions
+      phase0: "During the Concept phase, the ATLAS-1 team defined mission goals, high-level requirements, and initial CubeSat architecture while validating feasibility with faculty advisors and partners.",
+      phase1: "In the Design phase, the team developed detailed subsystem designs, completed preliminary and critical design reviews, and began early prototyping and software development.",
+      phase2: "The Integration phase focuses on assembling flight hardware, performing functional tests, and validating end-to-end communications with the ground segment.",
+      phase3: "Leading up to Launch, ATLAS-1 undergoes final environmental testing, integration with the deployer/launch provider, and readiness reviews.",
+      phase4: "During Operations, the team commands the satellite, downlinks payload and telemetry data, and publishes results while continuing outreach and educational activities at UNLV."
+    };
+
+    const steps = document.querySelectorAll(".timeline-step");
+    const detailEl = document.getElementById("timeline-detail");
+
+    steps.forEach(step => {
+      step.addEventListener("click", () => {
+        const phase = step.getAttribute("data-phase");
+        steps.forEach(s => s.classList.remove("active"));
+        step.classList.add("active");
+        if (phaseDetails[phase]) {
+          detailEl.textContent = phaseDetails[phase];
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+
 
