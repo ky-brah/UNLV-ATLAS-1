@@ -8,38 +8,42 @@
     name="description"
     content="UNLV ATLAS-1 is a student-led 1U CubeSat mission at the University of Nevada, Las Vegas advancing space technology and STEM education."
   />
+
+  <!-- Ubuntu Mono for titles -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap">
+
   <style>
-:root {
-  /* Backgrounds */
-  --bg: #050307;          /* almost black */
-  --bg-alt: #0b0b10;      /* slightly lighter black */
-  --card: #14141c;        /* card background */
-  --border: #2b2b35;
+    :root {
+      /* Black + maroon + reds + white, space-like */
+      --bg: #050307;
+      --bg-alt: #110208;
+      --accent: #f04848;           /* bright red accent */
+      --accent-deep: #7e1424;      /* deep maroon/red */
+      --accent-soft: rgba(240, 72, 72, 0.14);
+      --text: #f9fafb;
+      --muted: #b0b3c0;
+      --card: #13030a;
+      --border: #2a1217;
 
-  /* Text */
-  --text: #f9fafb;
-  --muted: #9ca3af;
+      --radius-xl: 1.25rem;
+      --radius-lg: 0.9rem;
 
-  /* Dark red accent (tweak if you want) */
-  --accent: #b91c1c;               /* dark red */
-  --accent-soft: rgba(185, 28, 28, 0.14);
-
-  --radius-xl: 1.25rem;
-  --radius-lg: 0.9rem;
-}
+      --font-heading: "Ubuntu Mono", monospace;  /* titles */
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; /* body */
+    }
 
     * {
       box-sizing: border-box;
     }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: radial-gradient(circle at top, #3b0f19 0, var(--bg) 55%, #000 100%);
-  color: var(--text);
-  line-height: 1.6;
-}
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top, #2e0a17 0, #050307 50%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
     a {
       color: var(--accent);
@@ -54,19 +58,19 @@ body {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
       background: linear-gradient(
         to bottom,
-        rgba(5, 8, 22, 0.92),
-        rgba(5, 8, 22, 0.7)
+        rgba(4, 1, 6, 0.96),
+        rgba(4, 1, 6, 0.8)
       );
-      border-bottom: 1px solid rgba(45, 55, 72, 0.7);
+      border-bottom: 1px solid rgba(50, 20, 30, 0.85);
     }
 
     .nav-inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0.6rem 1.25rem;
+      padding: 0.55rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -76,39 +80,47 @@ body {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-weight: 600;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
     }
 
     .logo-mark {
       width: 32px;
       height: 32px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #f3f4f6, var(--accent));
+      background: radial-gradient(circle at 30% 30%, #ffffff, var(--accent));
       position: relative;
-      box-shadow: 0 0 22px rgba(79, 209, 197, 0.8);
+      box-shadow: 0 0 20px rgba(240, 72, 72, 0.8);
+      overflow: hidden;
     }
 
     .logo-orbit {
       position: absolute;
       inset: 5px;
       border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.8);
-      border-top-color: rgba(248, 250, 252, 0.7);
+      border: 1px solid rgba(30, 10, 15, 0.9);
+      border-top-color: rgba(255, 242, 242, 0.8);
       transform: rotate(-18deg);
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.2rem;
+      gap: 1.1rem;
       margin: 0;
       padding: 0;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
     nav a {
       padding: 0.25rem 0;
-      border-bottom: 1px solid transparent;
+      border-bottom: 2px solid transparent;
     }
 
     nav a:hover {
@@ -118,20 +130,23 @@ body {
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       padding: 0.45rem 0.95rem;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
       border-radius: 999px;
-      border: 1px solid rgba(185, 28, 28, 0.7);
-      background: radial-gradient(circle at top left, var(--accent), #7f1d1d);
-      color: #0b1120;
-      font-weight: 600;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(240, 72, 72, 0.7);
+      background: radial-gradient(circle at top left, var(--accent), var(--accent-deep));
+      color: #fdfdfd;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.9);
       text-decoration: none;
     }
 
     .btn-primary span {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     main {
@@ -145,7 +160,7 @@ body {
       grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
       gap: 2rem;
       align-items: center;
-      padding: 2.5rem 0 2rem;
+      padding: 2.6rem 0 2.1rem;
     }
 
     @media (max-width: 900px) {
@@ -155,18 +170,21 @@ body {
     }
 
     .hero-kicker {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.28em;
       color: var(--accent);
       margin-bottom: 0.75rem;
+      font-family: var(--font-heading);
     }
 
     .hero-title {
-      font-size: clamp(2.1rem, 4vw, 2.9rem);
+      font-size: clamp(2.1rem, 4vw, 3rem);
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.08em;
       margin: 0 0 0.7rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
     }
 
     .hero-title span {
@@ -175,7 +193,7 @@ body {
 
     .hero-subtitle {
       color: var(--muted);
-      max-width: 32rem;
+      max-width: 34rem;
       font-size: 0.98rem;
       margin-bottom: 1.6rem;
     }
@@ -184,42 +202,44 @@ body {
       display: flex;
       flex-wrap: wrap;
       gap: 0.9rem;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
     }
 
     .meta-pill {
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(75, 85, 99, 0.8);
+      background: #060107;
+      border: 1px solid rgba(90, 50, 60, 0.9);
     }
 
+    /* Orbital hero graphic */
+
     .orbital-card {
-      background: radial-gradient(circle at top, #111827, #020617);
+      background: radial-gradient(circle at top, #220510, #050307);
       border-radius: 50%;
       aspect-ratio: 4 / 3;
       max-width: 360px;
       margin: 0 auto;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid rgba(80, 40, 50, 0.9);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.95);
     }
 
     .orbital-grid {
       position: absolute;
       inset: 8%;
       border-radius: 50%;
-      border: 1px solid rgba(75, 85, 99, 0.7);
-      border-top-color: rgba(156, 163, 175, 0.9);
+      border: 1px solid rgba(120, 70, 80, 0.6);
+      border-top-color: rgba(240, 200, 200, 0.9);
     }
 
     .orbital-track {
       position: absolute;
       inset: 18%;
       border-radius: 50%;
-      border: 1px dashed rgba(148, 163, 184, 0.85);
+      border: 1px dashed rgba(200, 150, 160, 0.85);
       transform: rotate(-18deg);
     }
 
@@ -228,16 +248,19 @@ body {
       width: 68px;
       height: 34px;
       border-radius: 12px;
-      background: linear-gradient(to right, var(--accent), #7f1d1d);
+      background: linear-gradient(to right, var(--accent), var(--accent-deep));
       top: 16%;
       right: 15%;
-      box-shadow: 0 0 22px rgba(79, 209, 197, 0.9);
+      box-shadow: 0 0 20px rgba(240, 72, 72, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.6rem;
       font-weight: 700;
-      color: #0b1120;
+      color: #0b0204;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
     .orbital-earth {
@@ -247,7 +270,7 @@ body {
       transform: translateX(-50%);
       width: 150%;
       height: 150%;
-      background: radial-gradient(circle at 50% 15%, #1e40af, #020617);
+      background: radial-gradient(circle at 50% 15%, #1f080f, #020001);
       border-top-left-radius: 50%;
       border-top-right-radius: 50%;
       border-bottom-left-radius: 0;
@@ -260,14 +283,15 @@ body {
       bottom: 8%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.88);
+      background: rgba(6, 1, 6, 0.95);
       border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid rgba(90, 40, 55, 0.9);
       padding: 0.45rem 0.9rem;
       font-size: 0.7rem;
       display: flex;
       gap: 0.9rem;
       color: var(--muted);
+      backdrop-filter: blur(4px);
     }
 
     .section {
@@ -277,6 +301,9 @@ body {
     .section h2 {
       font-size: 1.3rem;
       margin-bottom: 0.4rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
     }
 
     .section p.lead {
@@ -298,17 +325,20 @@ body {
     }
 
     .card {
-      background: radial-gradient(circle at top left, #1f2937, #020617);
+      background: radial-gradient(circle at top left, var(--card), var(--bg-alt));
       border-radius: var(--radius-xl);
       border: 1px solid var(--border);
       padding: 1.25rem 1.3rem;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
     }
 
     .card h3 {
       font-size: 1rem;
       margin-top: 0;
       margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
     }
 
     .card p {
@@ -327,8 +357,8 @@ body {
       padding: 0.2rem 0.6rem;
       font-size: 0.75rem;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: #060107;
+      border: 1px solid rgba(80, 40, 50, 0.9);
       color: var(--muted);
     }
 
@@ -341,29 +371,25 @@ body {
 
     .tiers-table th,
     .tiers-table td {
-      border: 1px solid rgba(45, 55, 72, 0.9);
+      border: 1px solid rgba(60, 25, 35, 0.95);
       padding: 0.55rem 0.6rem;
       vertical-align: top;
     }
 
     .tiers-table th {
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(13, 1, 6, 0.98);
       text-align: left;
     }
 
     .tiers-table tr:nth-child(even) td {
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(20, 3, 10, 0.9);
     }
 
     .sponsor-cta {
       padding: 1.1rem 1rem;
       border-radius: var(--radius-lg);
-      background: linear-gradient(
-        120deg,
-        var(--accent-soft),
-        rgba(127, 29, 29, 0.3)
-      );
-      border: 1px solid rgba(185, 28, 28, 0.6);
+      background: radial-gradient(circle at top left, var(--accent-soft), rgba(126, 20, 36, 0.16));
+      border: 1px solid rgba(240, 72, 72, 0.55);
       font-size: 0.9rem;
       display: flex;
       flex-wrap: wrap;
@@ -372,25 +398,7 @@ body {
       justify-content: space-between;
     }
 
-    footer {
-      border-top: 1px solid rgba(45, 55, 72, 0.8);
-      padding: 1.3rem 1.25rem 2rem;
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: radial-gradient(circle at bottom, #020617, #000);
-    }
-
-    footer div {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.7rem;
-    }
-
-    /* === Interactive Mission Timeline (full-width under Mission Overview) === */
+    /* === Interactive Mission Timeline (full-width) === */
 
     .timeline-card {
       margin-top: 1.1rem;
@@ -400,8 +408,8 @@ body {
       margin-top: 0.4rem;
       padding: 1rem 1.1rem 0.6rem;
       border-radius: 1rem;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
-      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: radial-gradient(circle at top left, #19020a, #090005);
+      border: 1px solid rgba(90, 40, 60, 0.9);
     }
 
     .timeline-header {
@@ -421,6 +429,7 @@ body {
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.14em;
+      font-family: var(--font-heading);
     }
 
     .timeline-track {
@@ -435,7 +444,12 @@ body {
       right: 0;
       top: 1.4rem;
       height: 2px;
-      background: linear-gradient(to right, rgba(75, 85, 99, 0.3), rgba(148, 163, 184, 0.9), rgba(75, 85, 99, 0.3));
+      background: linear-gradient(
+        to right,
+        rgba(60, 25, 35, 0.25),
+        rgba(240, 72, 72, 0.9),
+        rgba(60, 25, 35, 0.25)
+      );
     }
 
     .timeline-steps {
@@ -457,28 +471,29 @@ body {
       height: 16px;
       border-radius: 999px;
       margin: 0 auto 0.35rem;
-      border: 2px solid rgba(148, 163, 184, 0.8);
-      background: var(--bg);
+      border: 2px solid rgba(200, 150, 160, 0.8);
+      background: #050307;
       transition: all 0.2s ease;
     }
 
     .timeline-step.active .timeline-dot {
-  background: var(--accent);
-  border-color: #fefefe;
-  box-shadow: 0 0 16px rgba(185, 28, 28, 0.8);
-}
+      background: var(--accent);
+      border-color: #ffffff;
+      box-shadow: 0 0 18px rgba(240, 72, 72, 0.9);
+    }
 
     .timeline-label {
       font-size: 0.7rem;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.12em;
+      font-family: var(--font-heading);
     }
 
     .timeline-detail {
       margin-top: 1rem;
       padding-top: 0.8rem;
-      border-top: 1px dashed rgba(75, 85, 99, 0.8);
+      border-top: 1px dashed rgba(90, 40, 60, 0.9);
       font-size: 0.88rem;
       color: var(--muted);
       min-height: 3rem;
@@ -519,13 +534,16 @@ body {
       border-radius: 999px;
       object-fit: cover;
       margin-bottom: 0.6rem;
-      border: 2px solid rgba(185, 28, 28, 0.7);
-      background: #020617;
+      border: 2px solid rgba(240, 72, 72, 0.75);
+      background: #020001;
     }
 
     .team-name {
       font-size: 0.95rem;
       margin-bottom: 0.1rem;
+      font-family: var(--font-heading);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .team-role {
@@ -537,6 +555,24 @@ body {
       font-size: 0.75rem;
       color: var(--muted);
       margin-top: 0.35rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(60, 25, 35, 0.9);
+      padding: 1.3rem 1.25rem 2rem;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: radial-gradient(circle at bottom, #0a0104, #000);
+    }
+
+    footer div {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.7rem;
     }
   </style>
 </head>
@@ -645,7 +681,6 @@ body {
             </div>
           </div>
           <div class="timeline-detail" id="timeline-detail">
-            <!-- Initial text for active phase -->
             During the Concept phase, the ATLAS-1 team defined mission goals,
             high-level requirements, and initial CubeSat architecture while
             validating feasibility with faculty and partners.
@@ -692,7 +727,6 @@ body {
         <div class="card">
           <h3>Payload</h3>
           <p>
-            <!-- Fill this in from the presentation -->
             The ATLAS-1 payload is a [type of sensor / camera / experiment]
             designed to [payload objective]. The mission will generate data that
             supports research in:
@@ -710,7 +744,7 @@ body {
     <section class="section" id="team">
       <h2>Team & Advisors</h2>
       <p class="lead">
-        UNLV ATLAS-1 is developed by an interdisciplinary team of students at the
+        UNLV ATLAS-1 is developed by an interdisciplinary student team at the
         University of Nevada, Las Vegas, guided by faculty and industry advisors.
       </p>
 
@@ -923,5 +957,3 @@ body {
   </script>
 </body>
 </html>
-
-
