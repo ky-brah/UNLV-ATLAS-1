@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOSS Kit — Documentation</title>
+<style>
+  /* A deliberately traditional documentation layout: light page, quiet
+     left sidebar, one readable content column. The job is reading and
+     reference, so the design stays out of the way. Serif headings give a
+     "handbook" feel; system sans for body and UI; one muted red accent. */
+  :root{
+    --bg:#ffffff;
+    --sidebar:#f7f7f5;
+    --ink:#1c1d1f;
+    --ink-soft:#4a4d52;
+    --ink-faint:#85898f;
+    --line:#e4e4e1;
+    --line-strong:#d3d3cf;
+    --accent:#c0392b;
+    --accent-soft:#f9ecea;
+    --code-bg:#f5f5f3;
+    --code-ink:#b83227;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Charter,Georgia,serif;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    --sidebar-w:264px;
+    --maxread:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  code{
+    font-family:var(--mono);font-size:.86em;
+    background:var(--code-bg);color:var(--code-ink);
+    padding:.1em .38em;border-radius:3px;
+  }
+  pre{
+    background:var(--code-bg);border:1px solid var(--line);
+    border-radius:6px;padding:14px 16px;overflow-x:auto;margin:16px 0;
+  }
+  pre code{background:none;color:var(--ink);padding:0;font-size:.85rem;line-height:1.6}
+  .cmt{color:var(--ink-faint)}
+  .str{color:var(--accent)}
+
+  .layout{display:flex;min-height:100vh}
+
+  aside{
+    width:var(--sidebar-w);flex:0 0 var(--sidebar-w);
+    background:var(--sidebar);border-right:1px solid var(--line);
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .masthead{padding:22px 22px 18px;border-bottom:1px solid var(--line)}
+  .masthead .name{
+    font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--ink);letter-spacing:.01em;
+  }
+  .masthead .name .k{color:var(--accent)}
+  .masthead .desc{font-size:.8rem;color:var(--ink-faint);margin-top:3px}
+
+  nav{padding:14px 12px 40px}
+  .nav-section{margin-bottom:18px}
+  .nav-section > .label{
+    font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);padding:6px 12px;
+  }
+  .nav-link{
+    display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    font-family:var(--sans);font-size:.895rem;color:var(--ink-soft);
+    padding:7px 12px;border-radius:6px;line-height:1.4;
+  }
+  .nav-link:hover{background:#eeeeeb;color:var(--ink)}
+  .nav-link.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+  main{flex:1 1 auto;min-width:0;background:var(--bg)}
+  .page{display:none}
+  .page.active{display:block}
+  .container{max-width:var(--maxread);margin:0 auto;padding:46px 40px 96px}
+
+  .eyebrow{
+    font-size:.74rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+  h1{
+    font-family:var(--serif);font-size:2.15rem;font-weight:700;line-height:1.15;
+    margin:0 0 14px;letter-spacing:-.01em;
+  }
+  .intro{font-size:1.1rem;color:var(--ink-soft);margin:0 0 8px;line-height:1.6}
+
+  h2{
+    font-family:var(--serif);font-size:1.4rem;font-weight:700;
+    margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line);letter-spacing:-.005em;
+  }
+  h2:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:1.02rem;font-weight:650;margin:24px 0 8px;color:var(--ink)}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0;padding-left:24px}
+  li{margin:6px 0}
+  li::marker{color:var(--ink-faint)}
+  strong{font-weight:650}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.9rem}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
+  td code{white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+
+  .callout{
+    border-left:3px solid var(--line-strong);background:var(--sidebar);
+    padding:12px 16px;margin:18px 0;border-radius:0 5px 5px 0;font-size:.92rem;
+  }
+  .callout p:first-child{margin-top:0}
+  .callout p:last-child{margin-bottom:0}
+  .callout.important{border-left-color:var(--accent);background:var(--accent-soft)}
+  .callout .tag{
+    font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-faint);display:block;margin-bottom:4px;
+  }
+  .callout.important .tag{color:var(--accent)}
+
+  .tree{
+    font-family:var(--mono);font-size:.82rem;line-height:1.75;
+    background:var(--code-bg);border:1px solid var(--line);border-radius:6px;
+    padding:16px 18px;margin:16px 0;overflow-x:auto;white-space:pre;
+  }
+  .tree .dir{color:var(--accent);font-weight:500}
+  .tree .note{color:var(--ink-faint)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0}
+  ol.steps > li{counter-increment:s;position:relative;padding:2px 0 16px 40px;margin:0}
+  ol.steps > li::before{
+    content:counter(s);position:absolute;left:0;top:0;
+    width:26px;height:26px;border-radius:50%;background:var(--accent-soft);
+    color:var(--accent);font-size:.82rem;font-weight:700;
+    display:grid;place-items:center;font-family:var(--sans);
+  }
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+  .card{
+    display:block;text-align:left;background:var(--bg);cursor:pointer;
+    border:1px solid var(--line);border-radius:8px;padding:18px 20px;
+    font-family:inherit;color:inherit;transition:border-color .15s,box-shadow .15s;
+  }
+  .card:hover{border-color:var(--line-strong);box-shadow:0 2px 8px rgba(0,0,0,.04);text-decoration:none}
+  .card .step{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+  .card .h{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:5px 0 4px}
+  .card .p{font-size:.88rem;color:var(--ink-soft);line-height:1.5}
+
+  .contact{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);font-size:.94rem;color:var(--ink-soft)}
+  .contact .h{font-family:var(--serif);font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
+  .ph{font-family:var(--mono);font-size:.82em;background:var(--code-bg);border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--ink-faint)}
+
+  .kbd{font-family:var(--mono);font-size:.8em;background:#fff;border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:4px;padding:1px 6px}
+
+  /* terminal window — for commands shown as a session */
+  .term{
+    background:#1e1f22;border:1px solid #333;border-radius:8px;margin:16px 0;overflow:hidden;
+    font-family:var(--mono);font-size:.84rem;
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:7px;padding:9px 12px;background:#2a2b2f;border-bottom:1px solid #333;
+  }
+  .term-bar .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term-bar .r{background:#ff5f57}.term-bar .y{background:#febc2e}.term-bar .g{background:#28c840}
+  .term-bar .title{margin-left:8px;color:#9a9ca1;font-size:.74rem}
+  .term-body{padding:14px 16px;color:#e6e6e8;line-height:1.7;overflow-x:auto;white-space:pre}
+  .term-body .p{color:#6bd968}          /* prompt */
+  .term-body .c{color:#e6e6e8}          /* command */
+  .term-body .o{color:#9a9ca1}          /* output / comment */
+
+  /* menu path breadcrumb, e.g. for raspi-config navigation */
+  .path{
+    display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0;
+    font-family:var(--mono);font-size:.82rem;
+  }
+  .path .seg{background:var(--code-bg);border:1px solid var(--line);border-radius:4px;padding:2px 8px}
+  .path .arr{color:var(--ink-faint)}
+
+  .topbar{display:none}
+  @media (max-width:820px){
+    .layout{flex-direction:column}
+    aside{position:fixed;left:0;top:0;bottom:0;z-index:40;transform:translateX(-100%);transition:transform .2s;width:82%;max-width:300px}
+    aside.open{transform:none}
+    .topbar{
+      display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30;
+      background:var(--bg);border-bottom:1px solid var(--line);padding:11px 16px;
+    }
+    .topbar .name{font-family:var(--serif);font-weight:700}
+    .topbar .name .k{color:var(--accent)}
+    .menu{background:none;border:1px solid var(--line-strong);border-radius:6px;width:36px;height:36px;font-size:1.1rem;cursor:pointer}
+    .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:35}
+    .scrim.show{display:block}
+    .container{padding:32px 22px 80px}
+    .cards{grid-template-columns:1fr}
+    h1{font-size:1.75rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="menu" id="menuBtn" aria-label="Menu">☰</button>
+  <span class="name">MOSS<span class="k">·</span>Kit</span>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="layout">
+  <aside id="sidebar">
+    <div class="masthead">
+      <div class="name">MOSS<span class="k">·</span>Kit</div>
+      <div class="desc">Payload &amp; ground station docs</div>
+    </div>
+    <nav>
+      <div class="nav-section">
+        <button class="nav-link active" data-page="home">Introduction</button>
+      </div>
+      <div class="nav-section">
+        <div class="label">Getting started</div>
+        <button class="nav-link" data-page="setup">Overview</button>
+        <button class="nav-link" data-page="setup-flash">1 · Flash the SD card</button>
+        <button class="nav-link" data-page="setup-connect">2 · Connect to the Pi</button>
+        <button class="nav-link" data-page="setup-interfaces">3 · Enable interfaces</button>
+        <button class="nav-link" data-page="setup-verify">4 · Verify &amp; install Python</button>
+        <button class="nav-link" data-page="ssh">SSH reference</button>
+        <button class="nav-link" data-page="structure">File structure</button>
+      </div>
+      <div class="nav-section">
+        <div class="label">Flight Pi</div>
+        <button class="nav-link" data-page="flight-about">Overview</button>
+        <button class="nav-link" data-page="flight-hardware">1 · Wire the hardware</button>
+        <button class="nav-link" data-page="flight-addresses">2 · Check addresses</button>
+        <button class="nav-link" data-page="flight-libs">3 · Install libraries</button>
+        <button class="nav-link" data-page="flight-config">4 · Customize settings</button>
+        <button class="nav-link" data-page="flight-tests">5 · Preflight tests</button>
+        <button class="nav-link" data-page="flight-usage">6 · Run flight.py</button>
+      </div>
+      <div class="nav-section">
+        <div class="label">Ground Pi</div>
+        <button class="nav-link" data-page="ground">Overview</button>
+        <button class="nav-link" data-page="ground-nginx">1 · Install nginx</button>
+        <button class="nav-link" data-page="ground-paths">2 · Set your folder path</button>
+        <button class="nav-link" data-page="ground-test">3 · Test the dashboard</button>
+        <button class="nav-link" data-page="ground-run">4 · Run the receiver</button>
+        <button class="nav-link" data-page="ground-hotspot">5 · Field hotspot</button>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- HOME -->
+    <section class="page active" id="home">
+      <div class="container">
+        <div class="eyebrow">UNLV ATLAS-1 · student training platform</div>
+        <h1>The MOSS Kit</h1>
+        <p class="intro">A hands-on kit for building, flying, and recovering a real telemetry payload — the hardware, the code, and the docs that tie them together.</p>
+        <p>This documentation is a work in progress. It covers enough to set up both Raspberry Pis, run the flight software, and understand the data path from sensor to dashboard.</p>
+
+        <h2>About the payload</h2>
+        <p>ATLAS-1 is built to be cost-effective and reproducible with commercial off-the-shelf parts. It collects environmental data across six parameters — temperature, humidity, pressure, acceleration, magnetic field strength, and angular velocity — so high-altitude balloon flights can be compared against orbital operations. The goal is a training platform for students across Nevada, building toward more advanced space research.</p>
+        <table>
+          <thead><tr><th>Core hardware</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>Raspberry Pi 3B+</td><td>Flight computer</td></tr>
+            <tr><td>Sensor suite (BME280, LTR390, TSL2591, ICM20948)</td><td>Environmental + motion data</td></tr>
+            <tr><td>Raspberry Pi Camera v2</td><td>Imaging</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Recommended order</h2>
+        <p>Both Pis need the same groundwork first. After that, we suggest building the <strong>ground station before the payload</strong> — and the reason is practical:</p>
+        <div class="callout important">
+          <span class="tag">Why ground first</span>
+          <p>The ground station can be <strong>fully tested on a desk with no radio and no flight data</strong> — a fake-data script fills the dashboard so you can confirm the whole thing works. The flight Pi can't do that. It needs every sensor physically wired and correctly placed on the bus before it will run properly, so a mistake there is a hardware problem you have to find with a multimeter and a bus scan.</p>
+          <p>Building ground first also means that when you <em>do</em> power up the payload, you already have a working dashboard to watch it on — so anything that goes wrong is on the flight side, not a mystery split between the two.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <strong><a href="#" data-goto="setup">Main setup</a> — do this on both Pis.</strong>
+            <p>OS, connection, interfaces, Python. Four steps, once per Pi. Nothing else works until this is done.</p>
+          </li>
+          <li>
+            <strong><a href="#" data-goto="ground">Ground station</a> — build and test this first.</strong>
+            <p>Install nginx, set the folder path, then prove the dashboard works using fake data. No radio needed, nothing to wire, and you'll know it's right before the payload exists.</p>
+          </li>
+          <li>
+            <strong><a href="#" data-goto="flight-about">Flight Pi</a> — the payload.</strong>
+            <p>Wire the sensors, confirm the bus sees each one, install the drivers, then run it. With the ground station already working, you can watch real telemetry arrive immediately.</p>
+          </li>
+          <li>
+            <strong><a href="#" data-goto="ground-hotspot">Field hotspot</a> — last of all.</strong>
+            <p>Only once both Pis work on ordinary Wi-Fi. This is purely for the launch site, where no network exists.</p>
+          </li>
+        </ol>
+
+        <h2>Reference</h2>
+        <div class="cards">
+          <button class="card" data-page="structure">
+            <div class="step">Reference</div>
+            <div class="h">File structure</div>
+            <div class="p">What lives where on each Pi, and the modules both must share.</div>
+          </button>
+          <button class="card" data-page="ssh">
+            <div class="step">Reference</div>
+            <div class="h">SSH &amp; networking</div>
+            <div class="p">Connecting without a monitor, USB connections, and pulling data off.</div>
+          </button>
+        </div>
+
+        <div class="contact">
+          <div class="h">Thanks for trying our work</div>
+          <p>The MOSS Kit is built by students, for students. Questions, bugs, or ideas? Reach us at <span class="ph">contact TBD</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP: OVERVIEW -->
+    <section class="page" id="setup">
+      <div class="container">
+        <div class="eyebrow">Getting started</div>
+        <h1>Main setup</h1>
+        <p class="intro">The shared groundwork every MOSS script builds on. Do this once per Raspberry Pi, before touching any individual script.</p>
+
+        <div class="callout important">
+          <span class="tag">You do this twice</span>
+          <p>The kit uses <strong>two</strong> Raspberry Pis — one that flies (the payload) and one that stays with you (the ground station). These four steps apply to <em>both</em>. Set up one Pi completely, then repeat for the other.</p>
+        </div>
+
+        <h2>What you need</h2>
+        <table>
+          <thead><tr><th>Item</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Raspberry Pi 3B+ (×2)</td><td>The reference board for this kit — one flight, one ground</td></tr>
+            <tr><td>microSD card (×2)</td><td>16 GB or larger</td></tr>
+            <tr><td>Raspberry Pi OS (Debian Trixie)</td><td>The version the scripts target</td></tr>
+            <tr><td>Power + access</td><td>USB power, plus SSH or a monitor and keyboard</td></tr>
+          </tbody>
+        </table>
+
+        <h2>The four steps</h2>
+        <ol class="steps">
+          <li><strong><a href="#" data-goto="setup-flash">Flash the SD card</a></strong> — install the operating system, and set your name, password, and Wi-Fi while you're at it.</li>
+          <li><strong><a href="#" data-goto="setup-connect">Connect to the Pi</a></strong> — reach it from your laptop with no monitor needed.</li>
+          <li><strong><a href="#" data-goto="setup-interfaces">Enable interfaces</a></strong> — turn on I2C, serial, and the camera. They're off by default.</li>
+          <li><strong><a href="#" data-goto="setup-verify">Verify &amp; install Python</a></strong> — confirm the bus works and get the Python basics.</li>
+        </ol>
+
+        <div class="callout">
+          <span class="tag">Names are yours to choose</span>
+          <p>Throughout these docs we use our own username (<code>unlvcube1</code>) and hostnames (<code>ATLAS-1</code>, <code>ATLAS-1GS</code>) as examples. Pick anything you like — just use <em>your</em> names wherever ours appear, and stay consistent.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Do the setup on ordinary Wi-Fi</span>
+          <p>Build everything with the Pi on normal shared Wi-Fi or a USB cable. The Pi's own hotspot is a field-only step you set up last, once everything works.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP: 1 FLASH -->
+    <section class="page" id="setup-flash">
+      <div class="container">
+        <div class="eyebrow">Getting started · Step 1 of 4</div>
+        <h1>Flash the SD card</h1>
+        <p class="intro">Install the operating system onto the card that becomes the Pi's hard drive.</p>
+
+        <h2>What Raspberry Pi Imager is</h2>
+        <p>Raspberry Pi Imager is the official free app from <a href="https://www.raspberrypi.com/software/">raspberrypi.com/software</a>. You run it on <em>your own computer</em> with the SD card plugged in; it downloads Raspberry Pi OS and writes it to the card. That card then becomes the Pi's hard drive — everything the Pi runs lives there.</p>
+
+        <h2>Choose the basics</h2>
+        <p>In Imager, pick your Pi model, choose <strong>Raspberry Pi OS</strong> as the operating system, and select your SD card.</p>
+
+        <h2>Open the settings first — this saves you a monitor</h2>
+        <p>Before writing, click the <strong>gear icon</strong>. This is the step that matters most: fill these in and the Pi will be reachable from your laptop the moment it boots, with no screen or keyboard needed.</p>
+        <table>
+          <thead><tr><th>Setting</th><th>What to enter</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Hostname</strong></td><td>The Pi's name on the network. We use <code>ATLAS-1</code> for flight and <code>ATLAS-1GS</code> for ground — choose your own.</td></tr>
+            <tr><td><strong>Username &amp; password</strong></td><td>We use <code>unlvcube1</code>; yours can be anything. Write it down.</td></tr>
+            <tr><td><strong>Enable SSH</strong></td><td>Tick this. It's how you connect without a monitor.</td></tr>
+            <tr><td><strong>Wi-Fi name &amp; password</strong></td><td>Your normal network. The Pi joins it automatically on first boot.</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Write and boot</h2>
+        <p>Write the card, put it in the Pi, and power on. Give it a minute or two the first time — it does some setup on first boot.</p>
+
+        <div class="callout">
+          <span class="tag">Doing two Pis?</span>
+          <p>Repeat this for the second card, but give it a <strong>different hostname</strong> (e.g. one for flight, one for ground). Two Pis with the same name on one network will confuse you later.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="setup-connect">Step 2 · Connect to the Pi</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP: 2 CONNECT -->
+    <section class="page" id="setup-connect">
+      <div class="container">
+        <div class="eyebrow">Getting started · Step 2 of 4</div>
+        <h1>Connect to the Pi</h1>
+        <p class="intro">Get a terminal on the Pi from your own laptop — no monitor, keyboard, or mouse.</p>
+
+        <h2>What SSH is</h2>
+        <p>SSH gives you a command line on the Pi, from your laptop, over the network. It's exactly as if you were sitting at the Pi. The only requirement: your laptop and the Pi must be on the <strong>same network</strong>.</p>
+
+        <h2>Make sure your laptop is on the same Wi-Fi</h2>
+        <p>This is the part people miss. Check your laptop's Wi-Fi menu and confirm it's joined to the same network name you gave the Pi in Step 1.</p>
+
+        <h2>Connect</h2>
+        <p>Open a terminal on your laptop (Terminal on Mac/Linux, PowerShell or Windows Terminal on Windows), using <em>your</em> username and hostname:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ssh <span class="o">&lt;your-username&gt;</span>@<span class="o">&lt;your-hostname&gt;</span>.local</span>
+<span class="o">unlvcube1@ATLAS-1's password:</span></div>
+        </div>
+        <p>Type the password you set in Imager — it won't show as you type, which is normal. Once you're in, the prompt changes to the Pi's, and every command now runs on the Pi.</p>
+        <div class="callout">
+          <span class="tag">First-time warning</span>
+          <p>The very first time you connect, SSH asks <em>"Are you sure you want to continue connecting?"</em> — type <code>yes</code> and press <span class="kbd">Enter</span>. This happens once per Pi.</p>
+        </div>
+
+        <h2>If the hostname doesn't work</h2>
+        <p>Use the Pi's numeric address instead. If you have a monitor attached, or once you're in by any means:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">hostname -I</span>
+<span class="o">192.168.1.42</span></div>
+        </div>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ssh <span class="o">&lt;your-username&gt;</span>@192.168.1.42</span></div>
+        </div>
+
+        <h2>Joining Wi-Fi after boot</h2>
+        <p>If you skipped Wi-Fi in Imager, or want to switch networks, connect a monitor once and run:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo nmcli dev wifi connect <span class="o">"YourNetworkName"</span> password <span class="o">"YourPassword"</span></span></div>
+        </div>
+
+        <div class="callout">
+          <span class="tag">More detail</span>
+          <p>The <a href="#" data-goto="ssh">SSH reference</a> page covers USB connections, copying files off the Pi, and the field hotspot.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="setup-interfaces">Step 3 · Enable interfaces</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP: 3 INTERFACES -->
+    <section class="page" id="setup-interfaces">
+      <div class="container">
+        <div class="eyebrow">Getting started · Step 3 of 4</div>
+        <h1>Enable interfaces</h1>
+        <p class="intro">The sensors, radio, and camera all need their connections switched on. They're off by default.</p>
+
+        <div class="callout">
+          <span class="tag">Why this step exists</span>
+          <p>A fresh Raspberry Pi OS turns off hardware interfaces it doesn't assume you need. The kit needs three: <strong>I2C</strong> for the sensors, <strong>serial</strong> for the radio, and the <strong>camera</strong>. Skipping this is why sensors "don't exist" and radios stay silent.</p>
+        </div>
+
+        <h2>Open the config tool</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo raspi-config</span></div>
+        </div>
+        <p>A blue menu opens. Arrow keys move, <span class="kbd">Enter</span> selects, <span class="kbd">Esc</span> backs out. Everything you need is under <strong>Interface Options</strong>.</p>
+
+        <h2>Turn on I2C</h2>
+        <p class="path"><span class="seg">Interface Options</span><span class="arr">→</span><span class="seg">I2C</span><span class="arr">→</span><span class="seg">Yes</span></p>
+        <p style="color:var(--ink-soft)">Lets the Pi talk to the sensors and the battery HAT.</p>
+
+        <h2>Turn on serial — carefully</h2>
+        <p class="path"><span class="seg">Interface Options</span><span class="arr">→</span><span class="seg">Serial Port</span></p>
+        <p>This one asks <strong>two</strong> questions, and the answers are easy to get backwards:</p>
+        <ul>
+          <li><em>Would you like a login shell to be accessible over serial?</em> → <strong>No</strong></li>
+          <li><em>Would you like the serial port hardware to be enabled?</em> → <strong>Yes</strong></li>
+        </ul>
+        <div class="callout important">
+          <span class="tag">The single most common mistake</span>
+          <p>The radio needs sole use of the serial hardware. Leave the login shell on and the Pi keeps the port busy — the radio then stays completely silent, with no obvious error. If your radio never transmits, come back and check this first.</p>
+        </div>
+
+        <h2>Confirm the camera</h2>
+        <p class="path"><span class="seg">Interface Options</span><span class="arr">→</span><span class="seg">Camera / Legacy Camera</span></p>
+        <p style="color:var(--ink-soft)">On Debian Trixie the camera stack is on by default — just make sure the ribbon cable is properly seated.</p>
+
+        <h2>Finish and reboot</h2>
+        <p>Choose <strong>Finish</strong>, and reboot when prompted. The changes take effect on restart.</p>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="setup-verify">Step 4 · Verify &amp; install Python</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP: 4 VERIFY -->
+    <section class="page" id="setup-verify">
+      <div class="container">
+        <div class="eyebrow">Getting started · Step 4 of 4</div>
+        <h1>Verify &amp; install Python</h1>
+        <p class="intro">Confirm the I2C bus works, then get the Python basics every script assumes.</p>
+
+        <h2>Install the I2C tools</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo apt update</span>
+<span class="p">$ </span><span class="c">sudo apt install -y i2c-tools</span></div>
+        </div>
+
+        <h2>Scan the bus</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">i2cdetect -y 1</span>
+<span class="o">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+...
+70: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> a grid appears. On a bare Pi with nothing wired yet, it'll be all dashes — that's fine and still proves I2C is working. Once sensors are connected, their addresses show up here.</p>
+        <div class="callout important">
+          <span class="tag">If you get an error instead of a grid</span>
+          <p>Something like "could not open file /dev/i2c-1" means I2C isn't enabled. Go back to <a href="#" data-goto="setup-interfaces">Step 3</a> and turn it on, then reboot.</p>
+        </div>
+
+        <h2>Install Python basics</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo apt install -y python3-pip python3-venv</span></div>
+        </div>
+        <p>Individual scripts list their own libraries; this just gets the tooling they all assume.</p>
+
+        <h2>Update everything</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">on the pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo apt full-upgrade -y</span>
+<span class="p">$ </span><span class="c">sudo reboot</span></div>
+        </div>
+
+        <div class="callout important">
+          <span class="tag">This Pi is ready</span>
+          <p>Repeat all four steps for your second Pi if you haven't yet. Once both are done, head to the <a href="#" data-goto="home">Overview</a> for the recommended order — we suggest building the <strong>ground station first</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSH -->
+    <section class="page" id="ssh">
+      <div class="container">
+        <div class="eyebrow">Getting started</div>
+        <h1>SSH reference</h1>
+        <p class="intro">Deeper reference for connecting: USB cables, your own names, copying data off, and the field hotspot. For first-time connection see <a href="#" data-goto="setup-connect">Step 2 · Connect to the Pi</a>.</p>
+
+        <h2>What SSH is</h2>
+        <p>SSH gives you a terminal on the Pi from your own laptop, over the network. You get a command line as if you were sitting at the Pi — no monitor or keyboard needed. The only requirement is that your laptop and the Pi are on the same network.</p>
+
+        <div class="callout important">
+          <span class="tag">Recommended order</span>
+          <p>Do all of your setup — installing packages, copying files, testing scripts — while the Pi is on an <strong>ordinary connection first</strong>: either shared Wi-Fi or a USB cable to your laptop. Only set up the Pi's own hotspot at the very end, once everything works. The hotspot is meant for the field, where no other network exists; it's the last step, not the first.</p>
+        </div>
+
+        <h2>Easiest connections for setup</h2>
+        <p>Two simple ways to reach the Pi while you're building it, both easier than running a hotspot:</p>
+        <ul>
+          <li><strong>Shared Wi-Fi</strong> — put the Pi and your laptop on the same normal Wi-Fi network (home, lab, or a phone hotspot). Set this at flash time in Raspberry Pi Imager so it connects on first boot. Covered step by step below.</li>
+          <li><strong>USB cable</strong> — connect the Pi directly to your laptop with USB. With the Pi configured as a USB Ethernet gadget you can SSH straight over the cable, no wireless at all. Handy on a bench or anywhere Wi-Fi is unreliable.</li>
+        </ul>
+
+        <h2>Connecting over shared Wi-Fi, step by step</h2>
+        <p>This assumes you've never done it before. The goal is to get both your laptop and the Pi onto the same Wi-Fi network, then open a terminal session on the Pi.</p>
+        <ol class="steps">
+          <li>
+            <strong>Tell the Pi your Wi-Fi at flash time.</strong>
+            <p>The easiest path: when you flash the card in Raspberry Pi Imager (see <a href="#" data-goto="setup">Main setup</a>), the settings screen has fields for your <strong>Wi-Fi network name (SSID)</strong> and <strong>password</strong>, and a checkbox to <strong>enable SSH</strong>. Fill those in before writing. The Pi will then join your Wi-Fi automatically the first time it powers on — nothing else needed.</p>
+          </li>
+          <li>
+            <strong>Or join Wi-Fi after boot</strong> (if you didn't set it in Imager, or want to switch networks). Connect a monitor and keyboard once, or use a USB cable, then run:
+            <div class="term">
+              <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">unlvcube1@ATLAS-1: ~</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo nmcli dev wifi connect <span class="o">"YourNetworkName"</span> password <span class="o">"YourPassword"</span></span></div>
+            </div>
+            <p>Replace the two quoted values with your actual Wi-Fi name and password. <code>nmcli</code> is Raspberry Pi OS's built-in network tool.</p>
+          </li>
+          <li>
+            <strong>Make sure your laptop is on the same Wi-Fi.</strong>
+            <p>This is the part people miss: the laptop and the Pi must be on the <em>same</em> network for SSH to reach it. Check your laptop's Wi-Fi menu and confirm it's joined to the same network name you gave the Pi.</p>
+          </li>
+          <li>
+            <strong>Find the Pi's address.</strong>
+            <p>On the Pi (via monitor or USB), ask for its network address:</p>
+            <div class="term">
+              <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">unlvcube1@ATLAS-1: ~</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">hostname -I</span>
+<span class="o">192.168.1.42</span></div>
+            </div>
+            <p>That <code>192.168.x.x</code> number is the Pi's address on your network. (Often you can skip this and just use the hostname you set — see the next step.)</p>
+          </li>
+          <li>
+            <strong>SSH in from your laptop.</strong>
+            <p>Open a terminal on your laptop (Terminal on Mac/Linux, or PowerShell / Windows Terminal on Windows) and connect, using <em>your</em> username and hostname:</p>
+            <div class="term">
+              <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop: ~</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ssh unlvcube1@ATLAS-1.local</span>
+<span class="o"># or, using the address from the previous step:</span>
+<span class="p">$ </span><span class="c">ssh unlvcube1@192.168.1.42</span>
+<span class="o">unlvcube1@ATLAS-1's password:</span></div>
+            </div>
+            <p>Type the password you set in Imager (it won't show as you type — that's normal). Once you're in, the prompt changes to the Pi's, and every command now runs on the Pi.</p>
+          </li>
+        </ol>
+        <div class="callout">
+          <span class="tag">First-time SSH warning</span>
+          <p>The very first time you connect, SSH asks <em>"Are you sure you want to continue connecting?"</em> — type <code>yes</code> and press <span class="kbd">Enter</span>. This only happens once per Pi.</p>
+        </div>
+
+        <h2>Your own names</h2>
+        <div class="callout important">
+          <span class="tag">Customize freely</span>
+          <p>Everywhere these docs show <code>unlvcube1</code>, <code>ATLAS-1</code>, or <code>ATLAS-1GS</code>, those are just <em>our</em> choices. Use whatever username and hostnames you set in Raspberry Pi Imager. The commands are the same — only the names after <code>ssh</code> and in the paths change to match yours.</p>
+        </div>
+        <p>The username and hostname are set once, in Raspberry Pi Imager (or later via <code>sudo raspi-config</code> → System Options → Hostname). They are <strong>operating-system settings, not part of the Python code</strong> — so you don't edit any script to change your Pi's name.</p>
+        <p>What <em>does</em> live in the code are the <strong>radio settings and folder paths</strong>. If you rename the project folder or change the radio frequency or address, those are constants near the top of the flight and ground scripts. See <a href="#" data-goto="flight-config">Flight Pi → Customize settings</a> for exactly which lines, and remember any radio change must be made identically on both Pis.</p>
+
+        <div class="callout">
+          <span class="tag">If the hostname won't resolve</span>
+          <p>If <code>ssh unlvcube1@ATLAS-1</code> can't find the Pi, try adding <code>.local</code> (<code>ATLAS-1.local</code>), or use the numeric <code>192.168.x.x</code> address from <code>hostname -I</code> instead.</p>
+        </div>
+
+        <h2>Working in the field (last step)</h2>
+        <p>Only once everything above is set up and tested. At a launch site there's usually no Wi-Fi, so a Pi broadcasts its own network that your laptop joins, keeping SSH working locally. The Pi 3B+'s Wi-Fi is 2.4 GHz only and reaches maybe 100–300 ft outdoors — enough for pre-launch, useless once airborne.</p>
+        <div class="callout important">
+          <span class="tag">You choose the hotspot name</span>
+          <p>There is no built-in network name — you pick one for your team and use it consistently. The setup commands are on the <a href="#" data-goto="ground">Ground Pi</a> page, along with how to switch between hotspot mode and normal Wi-Fi.</p>
+        </div>
+        <div class="callout important">
+          <span class="tag">Important</span>
+          <p>Wi-Fi does not reach the balloon in flight. It's only for the ground: starting scripts before launch and pulling data after recovery. The one-way radio link carries telemetry down while airborne.</p>
+        </div>
+
+        <h2>Pulling data off the Pi</h2>
+        <p>After recovery, copy the flight data to your laptop. These run <strong>from your laptop</strong> (not the Pi), using <em>your</em> username and hostname in place of the placeholders. <code>scp</code> ("secure copy") moves files over the same SSH connection you already use.</p>
+        <p>Copy every run at once — the <code>-r</code> means "include everything in the folder":</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop: ~</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">scp -r <span class="o">&lt;user&gt;</span>@<span class="o">&lt;hostname&gt;</span>:~/hab/runs/ ./hab_data/</span>
+<span class="o"># example with our names:</span>
+<span class="p">$ </span><span class="c">scp -r unlvcube1@ATLAS-1:~/hab/runs/ ./hab_data/</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> a folder called <code>hab_data/</code> appears in whatever directory you ran the command from, containing the flight's logs and images. Or, to grab just the telemetry as a single file, first combine it on the Pi, then copy that one file:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">terminal</span></div>
+<div class="term-body"><span class="o"># on the Pi — join every run's log into one file</span>
+<span class="p">$ </span><span class="c">cat ~/hab/runs/*/logs/telemetry.jsonl &gt; ~/all_telemetry.jsonl</span>
+<span class="o"># on your laptop — copy that one file down</span>
+<span class="p">$ </span><span class="c">scp <span class="o">&lt;user&gt;</span>@<span class="o">&lt;hostname&gt;</span>:~/all_telemetry.jsonl ./</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILE STRUCTURE -->
+    <section class="page" id="structure">
+      <div class="container">
+        <div class="eyebrow">Getting started</div>
+        <h1>File structure</h1>
+        <p class="intro">What lives where on each Pi. The two share three modules that must stay identical.</p>
+
+        <p>Both Pis run under one user account. We named ours <code>unlvcube1</code>, so our paths read <code>/home/unlvcube1/...</code> — but yours will read <code>/home/&lt;your-username&gt;/...</code> with whatever name you chose in Raspberry Pi Imager. The flight (payload) Pi keeps everything in a project folder (we call it <code>hab</code>); the ground Pi uses one we call <code>ground</code>. The names are examples; the <em>structure</em> is what matters.</p>
+        <div class="callout">
+          <span class="tag">Reading these paths</span>
+          <p><code>~</code> is shorthand for your home folder, so <code>~/hab/</code> and <code>/home/&lt;your-username&gt;/hab/</code> mean the same place. Wherever you see <code>unlvcube1</code> in a path below, read your own username.</p>
+        </div>
+
+        <h2>Flight Pi — <code>~/hab/</code></h2>
+        <p>The flight program, the shared pipeline modules, the radio driver, and the preflight tests. The <code>runs/</code> folder is created at runtime — one timestamped folder per launch.</p>
+        <div class="tree"><span class="dir">/home/unlvcube1/hab/</span>
+├── flight.py              <span class="note">← the main flight program</span>
+├── tm_schema.py           <span class="note">← shared: binary packet pack/unpack</span>
+├── protocol_tm.py         <span class="note">← shared: TM framing + CRC</span>
+├── sx126x.py              <span class="note">← LoRa radio driver</span>
+├── test_flight_smoke.py   <span class="note">← preflight smoke test</span>
+├── test_camera_worker_real.py
+└── <span class="dir">runs/</span>                  <span class="note">← created at runtime, one per launch</span>
+    └── <span class="dir">&lt;UTC timestamp&gt;/</span>
+        ├── <span class="dir">logs/</span>telemetry.jsonl
+        └── <span class="dir">images/</span>img_000001.jpg …</div>
+
+        <h2>Ground Pi — <code>~/ground/</code></h2>
+        <p>The receiver plus the files it writes for the dashboard. The layout is shaped by nginx, which serves the dashboard and JSON files locally on port 5001 — no internet needed.</p>
+        <div class="tree"><span class="dir">/home/unlvcube1/ground/</span>
+├── rx_to_latest.py        <span class="note">← the receiver</span>
+├── tm_schema.py           <span class="note">← shared: identical to the flight Pi's copy</span>
+├── protocol_tm.py         <span class="note">← shared: identical to the flight Pi's copy</span>
+├── sx126x.py              <span class="note">← LoRa radio driver</span>
+├── fake_telemetry.py      <span class="note">← optional: test the dashboard with no radio</span>
+├── test_dashboard.py      <span class="note">← optional: checks nginx serves every file</span>
+├── latest.json            <span class="note">← rewritten every 2s (served at /latest.json)</span>
+├── <span class="dir">static/</span>
+│   ├── index.html         <span class="note">← the dashboard</span>
+│   └── chart.umd.min.js   <span class="note">← local Chart.js, works offline</span>
+└── <span class="dir">logs/</span>
+    └── history.jsonl      <span class="note">← appended every 2s (served at /history.jsonl)</span></div>
+        <p>The receiver writes files relative to its own location, so <code>rx_to_latest.py</code> and the shared modules stay together in this folder. nginx serves <code>static/index.html</code> at the root and the JSON files at <code>/latest.json</code> and <code>/history.jsonl</code>, which is where the dashboard fetches them.</p>
+
+        <h2>The shared-module rule</h2>
+        <div class="callout important">
+          <span class="tag">Most important rule</span>
+          <p><code>tm_schema.py</code> and <code>protocol_tm.py</code> must be <strong>byte-identical copies</strong> on both Pis. They aren't shared over the network — each Pi has its own copy. If the two drift apart, the ground station can't decode anything the flight sends. <code>sx126x.py</code> lives on both as well, since both ends drive a radio.</p>
+        </div>
+        <p>A simple way to catch a mismatch before a launch: check that the two copies really are identical. A quick method is to compute each file's <strong>hash</strong> — a short fingerprint of its exact contents — on both Pis and compare. If the fingerprints match, the files are byte-for-byte the same.</p>
+        <pre><code><span class="cmt"># run on each Pi and compare the output line by line</span>
+sha256sum ~/hab/tm_schema.py ~/hab/protocol_tm.py       <span class="cmt"># flight Pi</span>
+sha256sum ~/ground/tm_schema.py ~/ground/protocol_tm.py <span class="cmt"># ground Pi</span></code></pre>
+        <p>Each command prints a long string of letters and numbers next to each filename. If <code>tm_schema.py</code>'s string is the same on both Pis (and likewise for <code>protocol_tm.py</code>), the copies match.</p>
+        <div class="callout">
+          <span class="tag">Optional: version control</span>
+          <p>For a longer-term habit, teams often keep all these files in <strong>version control</strong> — a tool (most commonly <em>Git</em>) that tracks every change to your code over time and lets multiple people share one authoritative copy. It's not required for the kit to work, but it's the cleanest way to guarantee both Pis are always running the same version. If that's new to you, it's worth learning later — for now, the hash check above is enough.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: OVERVIEW -->
+    <section class="page" id="flight-about">
+      <div class="container">
+        <div class="eyebrow">Flight Pi</div>
+        <h1>Flight Pi overview</h1>
+        <p class="intro">The payload: the Raspberry Pi that actually flies. It reads every sensor, saves everything to its SD card, and radios a small copy to the ground.</p>
+
+        <h2>What it does, every 2 seconds</h2>
+        <p>One loop, repeated until power is cut:</p>
+        <ul>
+          <li>Read temperature, pressure, humidity (BME280), then estimate altitude above the launch pad.</li>
+          <li>Read UV/ambient light (LTR390), lux/IR/visible (TSL2591), and acceleration + gyro (ICM20948).</li>
+          <li>Read battery voltage, current, percentage (UPS HAT).</li>
+          <li>Ask the camera for a photo on a timer; a background thread takes it so the loop never waits.</li>
+          <li>Pack a 50-byte binary packet (schema v2) and transmit it twice over LoRa.</li>
+          <li>Append the full record to <code>telemetry.jsonl</code> on the SD card.</li>
+        </ul>
+
+        <h2>Two rules the code lives by</h2>
+        <div class="callout">
+          <span class="tag">Rule 1</span>
+          <p>The SD card log is the source of truth. Radio is best-effort — many packets are lost in flight — so the local <code>.jsonl</code> is what you analyze afterward.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Rule 2</span>
+          <p>Nothing crashes the flight. A failed sensor, camera, or radio is caught, recorded in the record's errors, and the loop continues. A dead sensor never silences the others.</p>
+        </div>
+
+        <h2>Do these in order</h2>
+        <p>Each step is checkable before you move on:</p>
+        <ol class="steps">
+          <li><strong><a href="#" data-goto="flight-hardware">Wire the hardware</a></strong> — what connects where.</li>
+          <li><strong><a href="#" data-goto="flight-addresses">Check addresses</a></strong> — confirm the Pi can see every sensor.</li>
+          <li><strong><a href="#" data-goto="flight-libs">Install libraries</a></strong> — the drivers and system tools.</li>
+          <li><strong><a href="#" data-goto="flight-config">Customize settings</a></strong> — the constants you may want to change.</li>
+          <li><strong><a href="#" data-goto="flight-tests">Preflight tests</a></strong> — prove it all works before launch day.</li>
+          <li><strong><a href="#" data-goto="flight-usage">Run flight.py</a></strong> — start it and read the output.</li>
+        </ol>
+        <div class="callout">
+          <span class="tag">First</span>
+          <p>Finish <a href="#" data-goto="setup">Main setup</a> (OS, I2C, serial, camera) before starting these.</p>
+        </div>
+
+        <h2>How a reading becomes a packet</h2>
+        <ol class="steps">
+          <li><strong>Pack</strong> — <code>tm_schema.pack()</code> compresses the record to a 50-byte binary payload.</li>
+          <li><strong>Frame</strong> — <code>protocol_tm.build_frame()</code> adds a 10-byte header (sync bytes, IDs, CRC) so the ground can find and verify it.</li>
+          <li><strong>Address</strong> — three leading bytes tell the radio who to send to.</li>
+          <li><strong>Send twice</strong> — back-to-back, so noise eating one copy doesn't lose the packet.</li>
+        </ol>
+        <div class="callout important">
+          <span class="tag">The ground contract</span>
+          <p><code>tm_schema.py</code> and <code>protocol_tm.py</code> must be identical on both Pis or nothing decodes. See <a href="#" data-goto="structure">File structure</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 1 HARDWARE -->
+    <section class="page" id="flight-hardware">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 1 of 6</div>
+        <h1>Wire the hardware</h1>
+        <p class="intro">What the payload expects, and how each piece connects.</p>
+
+        <div class="callout">
+          <span class="tag">The sensor suite</span>
+          <p>Four sensors share one I2C bus, plus a battery HAT. Each initializes independently in the code — if one fails, the others keep working and the failure is recorded on every packet.</p>
+        </div>
+
+        <h2>Everything that connects</h2>
+        <table>
+          <thead><tr><th>Device</th><th>Bus</th><th>Address / port</th><th>Job</th></tr></thead>
+          <tbody>
+            <tr><td>BME280</td><td>I2C</td><td><code>0x76</code> → <code>0x77</code></td><td>Temperature, pressure, humidity, altitude</td></tr>
+            <tr><td>LTR390</td><td>I2C</td><td>default</td><td>UV + ambient light</td></tr>
+            <tr><td>TSL2591</td><td>I2C</td><td>default</td><td>Lux / infrared / visible</td></tr>
+            <tr><td>ICM20948 (IMU)</td><td>I2C</td><td><code>0x68</code></td><td>Acceleration + gyro</td></tr>
+            <tr><td>Waveshare UPS HAT E</td><td>I2C</td><td><code>0x2D</code></td><td>Battery voltage / current / %</td></tr>
+            <tr><td>SX126x LoRa</td><td>UART</td><td><code>/dev/serial0</code></td><td>Radio downlink</td></tr>
+            <tr><td>Pi Camera v2</td><td>CSI</td><td>ribbon cable</td><td>Photos via <code>rpicam-still</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <span class="tag">Two different connections</span>
+          <p><strong>I2C</strong> is a shared bus — every sensor connects to the same two pins and is told apart by its address. <strong>UART</strong> (the serial port) is a dedicated line the radio needs to itself, which is why Main setup has you turn off the serial login shell.</p>
+        </div>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>Wired up? <a href="#" data-goto="flight-addresses">Step 2 · Check addresses</a> — confirm the Pi actually sees them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 2 ADDRESSES -->
+    <section class="page" id="flight-addresses">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 2 of 6</div>
+        <h1>Check addresses</h1>
+        <p class="intro">Confirm the Pi can see every sensor before you run anything. Software can't reach a device the bus can't see.</p>
+
+        <h2>Scan the bus</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">i2cdetect -y 1</span>
+<span class="o">     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- 2d -- --
+60: -- -- -- -- -- -- -- -- 68 -- -- -- -- -- -- --
+70: -- -- -- -- -- -- 76 -- -- -- -- -- -- -- -- --</span></div>
+        </div>
+        <p>Each two-character number is a device that answered. Match them against what you wired:</p>
+        <ul>
+          <li><code>0x76</code> or <code>0x77</code> — the BME280 (it uses one of the two).</li>
+          <li><code>0x68</code> — the ICM20948 IMU.</li>
+          <li><code>0x2d</code> — the UPS HAT battery gauge.</li>
+          <li>The LTR390 and TSL2591 sit at their own fixed defaults and appear too; the drivers find them automatically.</li>
+        </ul>
+
+        <h2>Your addresses may differ</h2>
+        <p>The addresses above are the defaults for these breakout boards, but they aren't guaranteed — some boards ship at a different address, and a few let you change it with a solder jumper or a pin. Treat the table as "what to expect," not "what it must be." The scan shows the truth for <em>your</em> hardware.</p>
+        <div class="callout">
+          <span class="tag">If an address is different</span>
+          <p>Two options: set the board back to its default (check its documentation for the address jumper), or change the address in the code. In <code>flight.py</code> they're named constants near the top — <code>BME280_PRIMARY_ADDR</code>, <code>BME280_FALLBACK_ADDR</code>, <code>IMU_I2C_ADDR</code>, <code>UPS_I2C_ADDR</code>. See <a href="#" data-goto="flight-config">Step 4</a>.</p>
+        </div>
+        <div class="callout important">
+          <span class="tag">If a device is missing entirely</span>
+          <p>Nothing appears where you expect it? That's wiring or a disabled bus — not a code problem. Re-check the connections and that I2C is enabled (<a href="#" data-goto="setup">Main setup</a>, step 3). Don't move on until every device shows up.</p>
+        </div>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>All present? <a href="#" data-goto="flight-libs">Step 3 · Install libraries</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 3 LIBRARIES -->
+    <section class="page" id="flight-libs">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 3 of 6</div>
+        <h1>Install libraries</h1>
+        <p class="intro">The Python drivers for each sensor, plus two tools that come with the OS.</p>
+
+        <h2>Python drivers</h2>
+        <p>One command installs all of them:</p>
+        <pre><code>pip install adafruit-circuitpython-bme280 adafruit-circuitpython-ltr390 adafruit-circuitpython-tsl2591 adafruit-circuitpython-icm20x smbus2</code></pre>
+        <p>What each is for:</p>
+        <ul>
+          <li><code>adafruit-circuitpython-bme280</code> — the BME280 driver (also pulls in <code>board</code> and <code>busio</code>).</li>
+          <li><code>adafruit-circuitpython-ltr390</code> — the LTR390 UV / ambient light sensor.</li>
+          <li><code>adafruit-circuitpython-tsl2591</code> — the TSL2591 lux / IR / visible light sensor.</li>
+          <li><code>adafruit-circuitpython-icm20x</code> — the ICM20948 IMU (acceleration + gyro).</li>
+          <li><code>smbus2</code> — raw I2C access for the UPS HAT battery gauge.</li>
+        </ul>
+        <div class="callout">
+          <span class="tag">Pi only</span>
+          <p><code>board</code> and <code>busio</code> ship with Adafruit Blinka, pulled in by the sensor packages. They only exist on a Pi — none of this installs on a laptop.</p>
+        </div>
+
+        <h2>System tools</h2>
+        <p>Two tools the flight software calls aren't Python packages, so <code>pip</code> doesn't install them: <code>rpicam-still</code> takes the photos, <code>vcgencmd</code> reads the CPU temperature. Both come preinstalled on current Raspberry Pi OS — confirm they're there:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">which rpicam-still vcgencmd</span>
+<span class="o">/usr/bin/rpicam-still
+/usr/bin/vcgencmd</span></div>
+        </div>
+        <p>If either prints nothing, install the camera apps:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo apt update</span>
+<span class="p">$ </span><span class="c">sudo apt install -y rpicam-apps</span></div>
+        </div>
+
+        <h2>Test the camera</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">rpicam-still -n -t 300 -o /tmp/test.jpg &amp;&amp; echo OK</span>
+<span class="o">OK</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> <code>OK</code>. That means the camera is wired correctly and the tool works.</p>
+
+        <div class="callout important">
+          <span class="tag">Which OS version — and when it bites</span>
+          <p>The photo command has two names depending on OS version. Newer Raspberry Pi OS (Debian <strong>Trixie</strong>, what this kit targets) calls it <code>rpicam-still</code>; older <strong>Bullseye</strong> called it <code>libcamera-still</code>. The flight code uses <code>rpicam-still</code>, so <strong>you only hit a problem on an older OS</strong> — photos fail with "command not found" while everything else keeps working. Check with <code>cat /etc/os-release</code>; if it says <code>trixie</code>, you're set. If it says <code>bullseye</code> and photos fail, re-flash with a current image.</p>
+        </div>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="flight-config">Step 4 · Customize settings</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 4 CONFIG -->
+    <section class="page" id="flight-config">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 4 of 6</div>
+        <h1>Customize settings</h1>
+        <p class="intro">Everything you might reasonably change sits in one block of named constants near the top of <code>flight.py</code>. You never have to touch the logic below it.</p>
+
+        <div class="callout">
+          <span class="tag">Good news: no file paths to edit</span>
+          <p><code>flight.py</code> works out its own location and creates the <code>runs/</code> folder next to itself. You can name the project folder anything and put it anywhere — the script still finds its way. The <code>~/hab/</code> in these docs is just our example name.</p>
+        </div>
+
+        <h2>The constants block</h2>
+        <p>Near the top of <code>flight.py</code> (roughly lines 85–135):</p>
+        <pre><code><span class="cmt"># ---- how often it sends ----</span>
+TELEMETRY_HZ = 0.5          <span class="cmt"># packets per second (0.5 = one every 2s)</span>
+
+<span class="cmt"># ---- I2C sensor addresses (change only if i2cdetect shows different) ----</span>
+UPS_I2C_ADDR         = 0x2D
+BME280_PRIMARY_ADDR  = 0x76
+BME280_FALLBACK_ADDR = 0x77
+IMU_I2C_ADDR         = 0x68
+
+<span class="cmt"># ---- camera timing ----</span>
+IMAGE_PERIOD_S       = 25   <span class="cmt"># seconds between photos</span>
+
+<span class="cmt"># ---- radio (MUST match the ground Pi) ----</span>
+LORA_FREQ_MHZ  = 915        <span class="cmt"># frequency</span>
+LORA_SRC_ADDR  = 1          <span class="cmt"># this node's address</span>
+LORA_DEST_ADDR = 65535      <span class="cmt"># where it sends (65535 = broadcast)</span>
+LORA_POWER_DBM = 22         <span class="cmt"># transmit power</span>
+
+<span class="cmt"># ---- storage caps ----</span>
+MAX_LOG_MB   = 200
+MAX_IMAGE_MB = 500</code></pre>
+
+        <h2>What's safe to change freely</h2>
+        <table>
+          <thead><tr><th>Constant</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>IMAGE_PERIOD_S</code></td><td>Seconds between photos — more photos costs battery and storage</td></tr>
+            <tr><td><code>TELEMETRY_HZ</code></td><td>How often packets go out</td></tr>
+            <tr><td><code>MAX_LOG_MB</code> / <code>MAX_IMAGE_MB</code></td><td>Storage caps before oldest files are trimmed</td></tr>
+            <tr><td>The four I2C addresses</td><td>Only if <a href="#" data-goto="flight-addresses">Step 2</a> showed different ones</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout important">
+          <span class="tag">Radio values must match on both Pis</span>
+          <p>The <code>LORA_*</code> values (and air speed) must be <strong>identical</strong> on the flight Pi and the ground Pi, or the two radios won't hear each other. Change one side, change the other to match. This is the most common reason a ground station receives nothing.</p>
+        </div>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="flight-tests">Step 5 · Preflight tests</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 5 PREFLIGHT TESTS -->
+    <section class="page" id="flight-tests">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 5 of 6</div>
+        <h1>Preflight tests</h1>
+        <p class="intro">Two scripts that catch problems at a desk, while they're still cheap to fix. Run them before launch day — not on it.</p>
+
+        <div class="callout">
+          <span class="tag">Why bother</span>
+          <p>A balloon flight is one shot. Once it's up, a missing library or a mismatched packet format is unfixable. These tests take a minute and catch exactly the boring failures that ruin a launch — the ones you can't see by looking at the code.</p>
+        </div>
+
+        <h2>The two tests</h2>
+        <table>
+          <thead><tr><th>Script</th><th>Needs hardware?</th><th>What it proves</th></tr></thead>
+          <tbody>
+            <tr><td><code>test_flight_smoke.py</code></td><td>No</td><td>Libraries import, packets are the right size, data survives the radio path, logs are valid, the loop won't crash</td></tr>
+            <tr><td><code>test_camera_worker_real.py</code></td><td>Yes — the camera</td><td>Real photos actually get taken and saved, without stalling the loop</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Run the smoke test</h2>
+        <p>A "smoke test" checks the thing turns on without catching fire. It doesn't prove your readings are correct — only that nothing is obviously broken end to end.</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">cd ~/hab</span>
+<span class="p">$ </span><span class="c">python3 test_flight_smoke.py</span>
+<span class="o">======================================================================
+TEST 1: flight.py imports cleanly
+======================================================================
+  PASS: all imports succeeded
+...
+SUMMARY
+  [PASS] imports
+  [PASS] pack_size
+  [PASS] round_trip
+  [PASS] jsonl_log
+  [PASS] main_loop
+
+5/5 tests passed</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> <code>5/5 tests passed</code>. It takes about 10 seconds — most of that is the last test deliberately running the flight loop for 6 seconds.</p>
+
+        <h2>What each test checks</h2>
+        <ol class="steps">
+          <li><strong>Imports</strong> — every library <code>flight.py</code> needs is installed on this Pi. The cheapest and most useful check; if this fails, nothing else matters and the script stops here.</li>
+          <li><strong>Packet size</strong> — <code>tm_schema.pack()</code> produces the exact byte count the schema declares (50 for v2). Size is a contract: the ground station reads a fixed number of bytes, so a mismatch breaks decoding silently.</li>
+          <li><strong>Round-trip</strong> — the most valuable one. It simulates the entire radio path in memory with no radio: <code>record → pack → frame → parse → unpack</code>. If a record survives intact, the flight and ground sides agree on the format. It uses deliberately extreme values (−45 °C, 250 hPa, 15.8 km) because that's what a real balloon sees near burst.</li>
+          <li><strong>JSONL log</strong> — the SD card log is the source of truth, since radio is lossy. This proves the log format holds.</li>
+          <li><strong>Main loop</strong> — proves <code>flight.py</code>'s core promise: a missing sensor or radio must not stop the loop.</li>
+        </ol>
+
+        <div class="callout important">
+          <span class="tag">Errors during Test 5 are normal</span>
+          <p>If you run the smoke test without sensors attached, Test 5 prints sensor errors as it goes. <strong>That is the expected result, not a failure.</strong> The test only asks one question: did the loop crash? Errors mean the error-handling is working. Only a crash — or a <code>FAIL</code> in the summary — is a real problem.</p>
+        </div>
+
+        <h2>Run the camera test</h2>
+        <p>This one uses the real camera and writes real <code>.jpg</code> files. Before running it, confirm the camera works at all:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">rpicam-still -n -t 300 -o /tmp/manual_test.jpg &amp;&amp; echo OK</span>
+<span class="o">OK</span></div>
+        </div>
+        <p>If that fails, fix the camera first — the test can't help you. Then:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">flight pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">python3 test_camera_worker_real.py</span>
+<span class="o">  [t= 0.00s] requested capture seq=101 accepted=True
+  [t= 1.52s] CAPTURED seq=101 path=/tmp/cam_real_test/img_000101.jpg bytes=412300
+...
+--- Summary ---
+Files produced: 3
+PASS: all expected captures produced files</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> <code>PASS: all expected captures produced files</code>. It runs 30 seconds and takes 3 photos. Output goes to <code>/tmp/cam_real_test/</code>, so it never touches your flight data.</p>
+        <div class="callout">
+          <span class="tag">What it's really testing</span>
+          <p>Taking a photo takes about a second. If <code>flight.py</code> waited for it, telemetry would stall every time — so captures run on a background thread and the loop just checks in on them. This test proves that actually works: notice the loop keeps ticking while a capture is in progress.</p>
+        </div>
+
+        <h2>If a test fails</h2>
+        <table>
+          <thead><tr><th>Failure</th><th>Usual cause</th></tr></thead>
+          <tbody>
+            <tr><td><code>[FAIL] imports</code></td><td>A library didn't install. Redo <a href="#" data-goto="flight-libs">Step 3 · Install libraries</a> and read the error.</td></tr>
+            <tr><td><code>[FAIL] pack_size</code></td><td><code>tm_schema.py</code> doesn't match what <code>flight.py</code> expects — usually a half-finished edit.</td></tr>
+            <tr><td><code>[FAIL] round_trip</code></td><td><code>tm_schema.py</code> and <code>protocol_tm.py</code> disagree. If you edited either, check both Pis still have identical copies (<a href="#" data-goto="structure">File structure</a>).</td></tr>
+            <tr><td><code>[FAIL] jsonl_log</code></td><td>Rare — usually a permissions or disk-full problem.</td></tr>
+            <tr><td><code>[FAIL] main_loop</code></td><td>Something crashed the loop. The error is printed above the summary.</td></tr>
+            <tr><td>Camera: fewer files than expected</td><td>Camera cable, or <code>rpicam-still</code> missing (<a href="#" data-goto="flight-libs">Step 3</a>).</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>All passing? <a href="#" data-goto="flight-usage">Step 6 · Run flight.py</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIGHT: 6 RUN -->
+    <section class="page" id="flight-usage">
+      <div class="container">
+        <div class="eyebrow">Flight Pi · Step 6 of 6</div>
+        <h1>Run flight.py</h1>
+        <p class="intro">Start the payload, read the heartbeat, and find your data afterward.</p>
+
+        <h2>Start it</h2>
+        <p>SSH in (see <a href="#" data-goto="ssh">SSH &amp; networking</a>), then run it from its folder:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ssh <span class="o">&lt;user&gt;</span>@<span class="o">&lt;flight-hostname&gt;</span></span>
+<span class="p">$ </span><span class="c">cd ~/hab</span>
+<span class="p">$ </span><span class="c">python3 flight.py</span></div>
+        </div>
+        <p>It prints the reference pressure and radio config on startup, then loops every 2 seconds. Each launch gets its own timestamped folder, so runs never overwrite each other.</p>
+        <div class="callout">
+          <span class="tag">Keep it running after you disconnect</span>
+          <p>A plain run stops when your SSH session closes. To leave it flying after you unplug your laptop, use <code>nohup python3 flight.py &amp;</code>, or launch it inside a <code>tmux</code> session you can detach from.</p>
+        </div>
+
+        <h2>Reading the heartbeat</h2>
+        <p>Every loop prints one status line — your proof the payload is alive:</p>
+        <pre><code>seq=42 t=2026-03-27T18:04:12.531+00:00 T=21.4C RH=38.2% alt=153.2m lux=8400.0 bat=4.05V 88% img_seq=40 tx=True errors=[]</code></pre>
+        <ul>
+          <li><code>seq</code> — packet counter; should tick up every ~2 s.</li>
+          <li><code>T</code> / <code>RH</code> / <code>alt</code> — temperature, humidity, altitude estimate.</li>
+          <li><code>lux</code> — ambient brightness from the TSL2591.</li>
+          <li><code>bat</code> — battery volts and percentage.</li>
+          <li><code>tx</code> — <code>True</code> if at least one radio copy went out.</li>
+          <li><code>errors</code> — empty is good; anything here is also saved in that record.</li>
+        </ul>
+        <div class="callout">
+          <span class="tag">Preflight check</span>
+          <p>Before launch, watch a few heartbeat lines: <code>tx=True</code>, <code>errors=[]</code>, and <code>seq</code> climbing. Confirm a photo landed with <code>ls -lh ~/hab/runs/*/images/ | tail</code>.</p>
+        </div>
+
+        <h2>Where output lands</h2>
+        <table>
+          <thead><tr><th>Path</th><th>Contents</th></tr></thead>
+          <tbody>
+            <tr><td><code>runs/&lt;timestamp&gt;/logs/telemetry.jsonl</code></td><td>One JSON record per line — the full dataset</td></tr>
+            <tr><td><code>runs/&lt;timestamp&gt;/images/img_NNNNNN.jpg</code></td><td>Photos, numbered by sequence</td></tr>
+          </tbody>
+        </table>
+        <p>Storage is capped (logs 200 MB, images 500 MB, oldest-deleted-first), so a long flight can't fill the card.</p>
+
+        <h2>Stopping</h2>
+        <p>Foreground: <span class="kbd">Ctrl</span> + <span class="kbd">C</span> — it stops the camera thread and closes the I2C bus cleanly. Background: find it with <code>pgrep -af flight.py</code> and stop it with <code>kill &lt;PID&gt;</code>.</p>
+
+        <h2>Getting the data after recovery</h2>
+        <p>Copy the runs to your laptop (full details on <a href="#" data-goto="ssh">SSH &amp; networking</a>):</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">scp -r <span class="o">&lt;user&gt;</span>@<span class="o">&lt;flight-hostname&gt;</span>:~/hab/runs/ ./hab_data/</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: OVERVIEW -->
+    <section class="page" id="ground">
+      <div class="container">
+        <div class="eyebrow">Ground Pi</div>
+        <h1>Ground station overview</h1>
+        <p class="intro">The receiving side: it listens on the radio, rebuilds each packet, and shows the data on a live dashboard in your browser.</p>
+
+        <h2>The three pieces</h2>
+        <p>The ground station is only three things working together. Once you can picture them, the setup steps make sense:</p>
+        <table>
+          <thead><tr><th>Piece</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>rx_to_latest.py</strong><br><span style="color:var(--ink-faint);font-size:.9em">the receiver</span></td><td>Listens to the radio and writes what it hears into two files: <code>latest.json</code> (the newest reading) and <code>logs/history.jsonl</code> (all readings).</td></tr>
+            <tr><td><strong>nginx</strong><br><span style="color:var(--ink-faint);font-size:.9em">the web server</span></td><td>Hands those two files, plus the dashboard page, to your browser when you ask for them.</td></tr>
+            <tr><td><strong>index.html</strong><br><span style="color:var(--ink-faint);font-size:.9em">the dashboard</span></td><td>The page you look at. Every 2 seconds it re-reads <code>latest.json</code> and redraws the numbers and charts.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <span class="tag">In one sentence</span>
+          <p>The receiver <em>writes</em> files → nginx <em>serves</em> those files → the dashboard <em>reads</em> them in your browser. Nothing talks directly to anything else; they just share two files.</p>
+        </div>
+
+        <h2>Do these in order</h2>
+        <p>Each step builds on the one before, and each one you can check before moving on. Follow them top to bottom:</p>
+        <ol class="steps">
+          <li><strong><a href="#" data-goto="ground-nginx">Install nginx</a></strong> — put the web server on the Pi.</li>
+          <li><strong><a href="#" data-goto="ground-paths">Set your folder path</a></strong> — tell nginx where your files are. The only place you type your own path.</li>
+          <li><strong><a href="#" data-goto="ground-test">Test the dashboard</a></strong> — prove it all works using fake data, before any radio exists.</li>
+          <li><strong><a href="#" data-goto="ground-run">Run the receiver</a></strong> — switch from fake data to real telemetry.</li>
+          <li><strong><a href="#" data-goto="ground-hotspot">Field hotspot</a></strong> — last of all, for the launch site with no Wi-Fi.</li>
+        </ol>
+        <div class="callout important">
+          <span class="tag">You do not need flight data to start</span>
+          <p>A common confusion: you might think you need the payload flying before the dashboard can show anything. You don't. Step 3 uses <code>fake_telemetry.py</code> to generate realistic pretend readings, so you can build and confirm the entire ground station on a desk with no radio at all.</p>
+        </div>
+
+        <h2>How a packet gets decoded</h2>
+        <p>For reference — this all happens inside <code>rx_to_latest.py</code>, you don't do anything:</p>
+        <ol class="steps">
+          <li>Read raw bytes from the radio (<code>sx126x</code>).</li>
+          <li>Strip the radio's address header, then find TM frames in the byte stream (CRC-checked).</li>
+          <li>Reassemble fragments by message ID, and drop the duplicate second copy from the 2× retransmit.</li>
+          <li><code>tm_schema.unpack()</code> turns the bytes back into a record.</li>
+          <li>Write <code>latest.json</code> and append <code>history.jsonl</code>.</li>
+        </ol>
+        <div class="callout important">
+          <span class="tag">The ground contract</span>
+          <p><code>tm_schema.py</code> and <code>protocol_tm.py</code> must be identical on both Pis or nothing decodes. See <a href="#" data-goto="structure">File structure</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: 1 INSTALL NGINX -->
+    <section class="page" id="ground-nginx">
+      <div class="container">
+        <div class="eyebrow">Ground Pi · Step 1 of 5</div>
+        <h1>Install nginx</h1>
+        <p class="intro">nginx is the web server that hands your dashboard and data files to the browser. Install it first; you'll configure it in step 2.</p>
+
+        <div class="callout">
+          <span class="tag">What nginx is, briefly</span>
+          <p>A web server's whole job is: a browser asks for a file, the server sends it. That's all we need it for here — it serves <code>index.html</code>, <code>latest.json</code>, and <code>history.jsonl</code>. It's used instead of anything fancier because it's light enough to run comfortably on a Pi 3B+.</p>
+        </div>
+
+        <h2>Install it</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo apt update</span>
+<span class="p">$ </span><span class="c">sudo apt install -y nginx</span></div>
+        </div>
+
+        <h2>Check it installed</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">nginx -v</span>
+<span class="o">nginx version: nginx/1.22.1</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> a version number prints. The exact number doesn't matter — any version is fine. If you get "command not found," the install didn't work; run the two commands above again and read any error.</p>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>nginx is installed but doesn't know where your files are yet. That's <a href="#" data-goto="ground-paths">Step 2 · Set your folder path</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: 2 SET FOLDER PATH -->
+    <section class="page" id="ground-paths">
+      <div class="container">
+        <div class="eyebrow">Ground Pi · Step 2 of 5</div>
+        <h1>Set your folder path</h1>
+        <p class="intro">This is the one and only place in the ground station where you type your own folder path. Four lines in one file.</p>
+
+        <div class="callout important">
+          <span class="tag">The short version</span>
+          <p>Edit four <code>alias</code> lines in <code>/etc/nginx/sites-available/ground</code>. No Python script needs a path changed — they find their own folder automatically.</p>
+        </div>
+
+        <h2>Why only nginx?</h2>
+        <p>The Python scripts work out their own location: each asks "what folder am I in?" and builds its paths from there, so renaming or moving the folder changes nothing. nginx is different — it's a system service started by the operating system, not from your folder, so it has no way to guess. You have to tell it once.</p>
+        <table>
+          <thead><tr><th>File</th><th>Edit a path?</th></tr></thead>
+          <tbody>
+            <tr><td><code>rx_to_latest.py</code></td><td><strong>No</strong> — auto-detects (line 110)</td></tr>
+            <tr><td><code>fake_telemetry.py</code></td><td><strong>No</strong> — auto-detects</td></tr>
+            <tr><td><code>test_dashboard.py</code></td><td><strong>No</strong> — auto-detects</td></tr>
+            <tr><td><strong>nginx config</strong></td><td><strong>Yes — 4 lines</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h2>Find your exact path</h2>
+        <p>Go to your ground folder and ask the Pi where you are:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">cd ~/ground</span>
+<span class="p">$ </span><span class="c">pwd</span>
+<span class="o">/home/maria/ground</span></div>
+        </div>
+        <p>Whatever <code>pwd</code> prints is your path — yours will have your own username, and your own folder name if you didn't call it <code>ground</code>. Write it down; you'll type it four times.</p>
+
+        <h2>Create the config file</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo nano /etc/nginx/sites-available/ground</span></div>
+        </div>
+        <p>Paste this in, replacing <strong>every</strong> <code>/home/maria/ground</code> with the path you just found. All four must match:</p>
+        <pre><code>server {
+    listen 5001;
+    server_name _;
+
+    location = / {
+        alias /home/maria/ground/static/;
+        try_files index.html =404;
+    }
+
+    location /static/ {
+        alias /home/maria/ground/static/;
+        add_header Cache-Control "no-store";
+    }
+
+    location = /latest.json {
+        alias /home/maria/ground/latest.json;
+        default_type application/json;
+        add_header Cache-Control "no-store";
+    }
+
+    location = /history.jsonl {
+        alias /home/maria/ground/logs/history.jsonl;
+        default_type application/json;
+        add_header Cache-Control "no-store";
+    }
+}</code></pre>
+        <p>Save and exit nano: <span class="kbd">Ctrl</span>+<span class="kbd">O</span>, <span class="kbd">Enter</span>, then <span class="kbd">Ctrl</span>+<span class="kbd">X</span>.</p>
+
+        <h2>Turn it on</h2>
+        <p>Enable your config and remove nginx's default page so they don't conflict:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">sudo ln -sf /etc/nginx/sites-available/ground /etc/nginx/sites-enabled/ground</span>
+<span class="p">$ </span><span class="c">sudo rm -f /etc/nginx/sites-enabled/default</span>
+<span class="p">$ </span><span class="c">sudo nginx -t</span>
+<span class="o">nginx: configuration file /etc/nginx/nginx.conf test is successful</span>
+<span class="p">$ </span><span class="c">sudo systemctl enable nginx</span>
+<span class="p">$ </span><span class="c">sudo systemctl restart nginx</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> <code>nginx -t</code> says <em>successful</em>. If it reports an error it names the line — fix that and test again before restarting.</p>
+
+        <div class="callout">
+          <span class="tag">If the path is wrong</span>
+          <p>Nothing breaks permanently — the dashboard just shows a 404 or blank page, because nginx is looking somewhere that doesn't exist. Re-open the config, fix the paths, <code>sudo nginx -t</code>, then restart. You'll verify it properly in the next step.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p><a href="#" data-goto="ground-test">Step 3 · Test the dashboard</a> — prove it works with fake data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: 3 TEST -->
+    <section class="page" id="ground-test">
+      <div class="container">
+        <div class="eyebrow">Ground Pi · Step 3 of 5</div>
+        <h1>Test the dashboard</h1>
+        <p class="intro">Confirm the whole ground station works — with no radio, no payload, and no flight data.</p>
+
+        <div class="callout important">
+          <span class="tag">You do not need flight data</span>
+          <p>This is the step people skip because they assume they need the payload flying first. You don't. <code>fake_telemetry.py</code> writes realistic pretend readings into the same two files the real receiver writes, so the dashboard fills in and animates exactly as it would in a real flight.</p>
+        </div>
+
+        <h2>Put the dashboard in place</h2>
+        <p>nginx expects the dashboard at <code>static/index.html</code> inside your ground folder, with Chart.js next to it:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ls ~/ground/static/</span>
+<span class="o">chart.umd.min.js  index.html</span></div>
+        </div>
+        <div class="callout">
+          <span class="tag">Put your own name on it</span>
+          <p>The dashboard ships with our team's name on it. To make it yours, open <code>static/index.html</code> and search for <code>CHANGE ME</code> — there are two spots: the browser tab title and the big heading at the top of the page (plus an optional subtitle). They're cosmetic; the dashboard works either way.</p>
+        </div>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">nano ~/ground/static/index.html</span>
+<span class="o"># in nano, press Ctrl+W and search for:  CHANGE ME</span></div>
+        </div>
+        <div class="callout important">
+          <span class="tag">Change the name, nothing else</span>
+          <p>Apart from those marked lines, leave <code>index.html</code> alone. It contains no usernames, addresses, or folder paths — it asks for <code>/latest.json</code> from whatever server gave it the page, which is why the same file works on any Pi, under any username, on home Wi-Fi or the field hotspot. If the dashboard is blank, the cause is nginx's folder path or the receiver not running, never this file.</p>
+        </div>
+
+        <h2>Run the fake data generator</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">cd ~/ground</span>
+<span class="p">$ </span><span class="c">python3 fake_telemetry.py</span>
+<span class="o">&gt;&gt;&gt; Seeding 50 past packets into history.jsonl ...
+    done.
+&gt;&gt;&gt; Writing a fake packet every 2s. Ctrl+C to stop.
+
+  seq=  50  T= 23.4C  RH=44.7%  P= 1010.5hPa  bat=3.93V 87%
+  seq=  51  T= 23.6C  RH=44.5%  P= 1010.4hPa  bat=3.93V 87%</span></div>
+        </div>
+        <p>Leave this running. It only writes those two files — no <code>sudo</code>, no network, no system settings — so it can't harm anything.</p>
+
+        <h2>Open the dashboard</h2>
+        <p>In a browser on the same network as the Pi:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">find the address</span></div>
+<div class="term-body"><span class="o"># on the Pi, get its address:</span>
+<span class="p">$ </span><span class="c">hostname -I</span>
+<span class="o">192.168.1.42</span>
+
+<span class="o"># then in your browser, visit:</span>
+<span class="o">http://192.168.1.42:5001</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> numbers and charts appear, and update every 2 seconds. If you see that, your entire ground station works — nginx is serving correctly, the paths are right, and the dashboard reads the data. Press <span class="kbd">Ctrl</span>+<span class="kbd">C</span> to stop the fake data.</p>
+
+        <h2>If the dashboard is blank</h2>
+        <p>Work through these in order — each rules out one thing:</p>
+        <table>
+          <thead><tr><th>Check</th><th>What it tells you</th></tr></thead>
+          <tbody>
+            <tr><td><code>systemctl is-active nginx</code></td><td>Should say <code>active</code>. If not, nginx isn't running.</td></tr>
+            <tr><td><code>curl http://localhost:5001/latest.json</code></td><td>Should print JSON. A 404 means your <a href="#" data-goto="ground-paths">folder path</a> is wrong.</td></tr>
+            <tr><td><code>ls ~/ground/static/index.html</code></td><td>Confirms the dashboard file is actually where nginx expects it.</td></tr>
+            <tr><td><code>python3 test_dashboard.py</code></td><td>Checks nginx can serve every file the dashboard needs.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>Dashboard working? <a href="#" data-goto="ground-run">Step 4 · Run the receiver</a> — swap fake data for real telemetry.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: 4 RUN RECEIVER -->
+    <section class="page" id="ground-run">
+      <div class="container">
+        <div class="eyebrow">Ground Pi · Step 4 of 5</div>
+        <h1>Run the receiver</h1>
+        <p class="intro">Switch from fake data to real telemetry coming down from the payload.</p>
+
+        <div class="callout">
+          <span class="tag">Stop the fake data first</span>
+          <p>If <code>fake_telemetry.py</code> is still running, press <span class="kbd">Ctrl</span>+<span class="kbd">C</span>. Both programs write the same two files, so running them together would mix real and pretend readings.</p>
+        </div>
+
+        <h2>Start it</h2>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">you@laptop</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">ssh <span class="o">&lt;user&gt;</span>@<span class="o">&lt;ground-hostname&gt;</span></span>
+<span class="p">$ </span><span class="c">cd ~/ground</span>
+<span class="p">$ </span><span class="c">python3 rx_to_latest.py</span></div>
+        </div>
+        <p>It listens continuously. When a packet arrives it decodes it, writes the files, and the dashboard picks it up within 2 seconds — no refresh needed.</p>
+
+        <h2>What you'll see</h2>
+        <p>The receiver prints a line per decoded packet. Silence is normal when the payload isn't transmitting — it just means nothing has arrived yet, not that something is broken.</p>
+
+        <div class="callout important">
+          <span class="tag">If packets arrive but won't decode</span>
+          <p>This is almost always the shared-module rule: <code>tm_schema.py</code> and <code>protocol_tm.py</code> must be identical on both Pis, and the radio settings must match. See <a href="#" data-goto="structure">File structure</a>.</p>
+        </div>
+
+        <h2>Keep it running after you disconnect</h2>
+        <p>A plain run stops when your SSH session closes. To leave it running:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="p">$ </span><span class="c">nohup python3 rx_to_latest.py &amp;</span></div>
+        </div>
+
+        <div class="callout">
+          <span class="tag">Next</span>
+          <p>Everything working on your normal Wi-Fi? Only then set up the <a href="#" data-goto="ground-hotspot">Step 5 · Field hotspot</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUND: 5 HOTSPOT -->
+    <section class="page" id="ground-hotspot">
+      <div class="container">
+        <div class="eyebrow">Ground Pi · Step 5 of 5</div>
+        <h1>Field hotspot</h1>
+        <p class="intro">At a launch site there's no Wi-Fi, so the Pi makes its own network for your laptop to join. Do this last, once everything else works.</p>
+
+        <div class="callout important">
+          <span class="tag">You must choose your own network name</span>
+          <p>The commands below contain <code>&lt;your-hotspot-name&gt;</code> and <code>&lt;your-password&gt;</code> as blanks — <strong>these are not real values</strong>. Pick a name and password for your team and type those in instead. Write them down: this is the Wi-Fi name you'll look for on your laptop at the launch site, and everyone on the team needs to know it.</p>
+        </div>
+
+        <h2>Create it once</h2>
+        <p>Three commands. The Pi then remembers this network permanently:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="o"># name the network</span>
+<span class="p">$ </span><span class="c">sudo nmcli con add type wifi ifname wlan0 con-name hotspot autoconnect no ssid <span class="o">"&lt;your-hotspot-name&gt;"</span></span>
+<span class="o"># make it broadcast rather than join</span>
+<span class="p">$ </span><span class="c">sudo nmcli con modify hotspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared</span>
+<span class="o"># set the password</span>
+<span class="p">$ </span><span class="c">sudo nmcli con modify hotspot wifi-sec.key-mgmt wpa-psk wifi-sec.psk <span class="o">"&lt;your-password&gt;"</span></span></div>
+        </div>
+
+        <h2>Switch modes whenever you need</h2>
+        <p>These two commands are the whole thing — no script needed:</p>
+        <div class="term">
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">ground pi</span></div>
+<div class="term-body"><span class="o"># field mode: hotspot ON</span>
+<span class="p">$ </span><span class="c">sudo nmcli con up hotspot</span>
+<span class="o">Connection successfully activated</span>
+
+<span class="o"># back to normal Wi-Fi: hotspot OFF</span>
+<span class="p">$ </span><span class="c">sudo nmcli con down hotspot</span>
+
+<span class="o"># which mode am I in?</span>
+<span class="p">$ </span><span class="c">nmcli con show --active</span></div>
+        </div>
+        <p><strong>Expected outcome:</strong> after <code>con up</code>, your chosen network name appears in your laptop's Wi-Fi list. Join it with your password, then open <code>http://192.168.4.1:5001</code>. After <code>con down</code>, the Pi rejoins your normal Wi-Fi.</p>
+
+        <h2>Dashboard addresses</h2>
+        <p>The dashboard itself works identically on either network — only the address you type changes:</p>
+        <table>
+          <thead><tr><th>Network</th><th>Open in your browser</th></tr></thead>
+          <tbody>
+            <tr><td>Normal Wi-Fi</td><td><code>http://&lt;pi-address&gt;:5001</code> — find it with <code>hostname -I</code></td></tr>
+            <tr><td>The Pi's hotspot</td><td><code>http://192.168.4.1:5001</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout important">
+          <span class="tag">Careful if you're connected over Wi-Fi</span>
+          <p>Turning the hotspot on drops the Pi off your normal Wi-Fi — which disconnects your SSH session if that's how you're connected. That's expected, not a crash. Reconnect by joining the Pi's hotspot. To avoid the surprise, run these from a monitor and keyboard, or over a USB connection.</p>
+        </div>
+        <div class="callout">
+          <span class="tag">Why <code>autoconnect no</code></span>
+          <p>The hotspot won't start on its own, so the Pi stays on your normal Wi-Fi while you're building. You turn it on deliberately when you head to the field. Prefer it always on at the launch site? Change that to <code>autoconnect yes</code>.</p>
+        </div>
+        <div class="callout important">
+          <span class="tag">Remember</span>
+          <p>Wi-Fi never reaches the balloon in flight. It's only for the ground: starting scripts before launch and pulling data after recovery. The one-way radio link carries telemetry down while airborne.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const sidebar = document.getElementById('sidebar');
+  const scrim = document.getElementById('scrim');
+
+  function show(id){
+    const target = document.getElementById(id);
+    if(!target) return;
+    pages.forEach(p => p.classList.toggle('active', p.id === id));
+    document.querySelectorAll('.nav-link').forEach(l =>
+      l.classList.toggle('active', l.dataset.page === id));
+    history.replaceState(null, '', '#' + id);
+    window.scrollTo({top:0});
+    sidebar.classList.remove('open');
+    scrim.classList.remove('show');
+  }
+
+  document.querySelectorAll('[data-page]').forEach(l =>
+    l.addEventListener('click', () => show(l.dataset.page)));
+  document.querySelectorAll('[data-goto]').forEach(a =>
+    a.addEventListener('click', e => { e.preventDefault(); show(a.dataset.goto); }));
+
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    sidebar.classList.add('open'); scrim.classList.add('show');
+  });
+  scrim.addEventListener('click', () => {
+    sidebar.classList.remove('open'); scrim.classList.remove('show');
+  });
+
+  const start = location.hash.replace('#','');
+  if(start && document.getElementById(start)) show(start);
+</script>
+</body>
+</html>
